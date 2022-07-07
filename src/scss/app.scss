@@ -23,10 +23,18 @@ body {
 		margin: 35px 0;
 	}
 
-	&__items {
+	&__list {
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: space-between;
+	}
+
+	&__items {
+		margin-bottom: 65px;
+
+		&:not(:nth-of-type(4n)) {
+			margin-right: 35px;
+		}
 	}
 
 	&__top {
