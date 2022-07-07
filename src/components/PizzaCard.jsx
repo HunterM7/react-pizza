@@ -19,7 +19,8 @@ const PizzaCard = ({ title, price, imageUrl, sizes, types }) => {
 					{types.map((typeId, index) => {
 						return (
 							<li
-								className={activeType === index && 'active'}
+								key={typeId}
+								className={activeType === index ? 'active' : ''}
 								onClick={() => setActiveType(index)}
 							>
 								{typeNames[typeId]}
@@ -31,7 +32,8 @@ const PizzaCard = ({ title, price, imageUrl, sizes, types }) => {
 					{sizes.map((size, index) => {
 						return (
 							<li
-								className={activeSize === index && 'active'}
+								key={size}
+								className={activeSize === index ? 'active' : ''}
 								onClick={() => setActiveSize(index)}
 							>
 								{size} см.

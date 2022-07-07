@@ -18,19 +18,25 @@
 			color: $orange;
 			border-bottom: 1px dashed $orange;
 			cursor: pointer;
+
+			user-select: none;
 		}
 	}
 
 	&__popup {
+		min-width: 160px;
+
+		padding: 10px 0;
+		margin-top: 15px;
+
 		position: absolute;
 		right: 0;
-		margin-top: 15px;
+
+		border-radius: 10px;
 		background: #ffffff;
 		box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.09);
-		border-radius: 10px;
+
 		overflow: hidden;
-		padding: 10px 0;
-		width: 160px;
 
 		ul {
 			overflow: hidden;
