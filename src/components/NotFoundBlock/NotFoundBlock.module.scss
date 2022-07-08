@@ -1,0 +1,28 @@
+//? == NotFoundBlock ==
+
+.root {
+	line-height: 1;
+	text-align: center;
+
+	max-width: 750px;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	margin: 0 auto;
+
+	&__emoji {
+		font-size: 100px;
+		user-select: none;
+	}
+
+	&__title {
+		font-size: 64px;
+		margin-bottom: 16px;
+	}
+
+	&__desc {
+		font-size: 22px;
+	}
+}

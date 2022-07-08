@@ -8,6 +8,12 @@
 
 		svg {
 			margin-right: 8px;
+
+			transition: transform 0.3s ease;
+
+			&.active {
+				transform: rotate(180deg);
+			}
 		}
 
 		b {
@@ -31,6 +37,8 @@
 
 		position: absolute;
 		right: 0;
+
+		z-index: 100;
 
 		border-radius: 10px;
 		background: #ffffff;

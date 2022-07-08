@@ -5,6 +5,12 @@
 	flex-direction: row;
 	align-items: center;
 
+	overflow: auto;
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
+
 	&__item {
 		font-weight: bold;
 
@@ -12,7 +18,10 @@
 		background-color: #f9f9f9;
 
 		padding: 13px 30px;
-		margin-right: 10px;
+
+		&:not(:last-of-type) {
+			margin-right: 10px;
+		}
 
 		cursor: pointer;
 

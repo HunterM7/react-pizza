@@ -1,21 +1,22 @@
-import React from 'react';
+import React from 'react'
 
 const Sort = () => {
-	const [open, setOpen] = React.useState(false);
-	const [selectedSort, setSelectedSort] = React.useState(0);
+	const [open, setOpen] = React.useState(false)
+	const [selectedSort, setSelectedSort] = React.useState(0)
 
-	const sortList = ['популярности', 'цене', 'алфавиту'];
-	const selectedName = sortList[selectedSort];
+	const sortList = ['популярности', 'цене', 'алфавиту']
+	const selectedName = sortList[selectedSort]
 
 	const chooseAndClose = (i) => {
-		setSelectedSort(i);
-		setOpen(!open);
-	};
+		setSelectedSort(i)
+		setOpen(!open)
+	}
 
 	return (
 		<div className='sort'>
 			<div className='sort__label'>
 				<svg
+					className={open && 'active'}
 					width='10'
 					height='6'
 					viewBox='0 0 10 6'
@@ -43,13 +44,13 @@ const Sort = () => {
 								>
 									{item}
 								</li>
-							);
+							)
 						})}
 					</ul>
 				</div>
 			)}
 		</div>
-	);
-};
+	)
+}
 
-export default Sort;
+export default Sort
