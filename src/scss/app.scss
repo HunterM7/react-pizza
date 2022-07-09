@@ -54,7 +54,6 @@ body {
 	&__list {
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
-		grid-template-rows: repeat(2, 1fr);
 		row-gap: 36px;
 
 		// Max-width: 1360px

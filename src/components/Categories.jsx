@@ -1,16 +1,13 @@
-import React from 'react';
+import React from 'react'
 
-const Categories = () => {
+const Categories = ({ activeCategory, setActiveCategory }) => {
 	const categoryItems = [
 		'Все',
 		'Мясные',
 		'Вегетерианские',
 		'Гриль',
 		'Острые',
-		'Закрытые',
-	];
-
-	const [activeCategory, setActiveCategory] = React.useState(0);
+	]
 
 	return (
 		<ul className='categories'>
@@ -26,10 +23,10 @@ const Categories = () => {
 					>
 						{item}
 					</li>
-				);
+				)
 			})}
 		</ul>
-	);
-};
+	)
+}
 
-export default Categories;
+export default Categories

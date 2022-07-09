@@ -8,9 +8,23 @@ import PizzaCardSkeleton from '../components/PizzaCard/PizzaCardLoader'
 const Home = () => {
 	const [pizzas, setPizzas] = React.useState([])
 	const [isLoading, setIsLoading] = React.useState(true)
+	const [activeCategory, setActiveCategory] = React.useState(0)
+	const [selectedSort, setSelectedSort] = React.useState({
+		name: 'популярности',
+		sortProperty: 'rating',
+		order: 'desc',
+	})
 
 	React.useEffect(() => {
-		fetch('https://62c6ff0674e1381c0a6edc07.mockapi.io/pizzas')
+		setIsLoading(true)
+
+		let filter = ''
+		filter += `?sortBy=${selectedSort.sortProperty}&order=${selectedSort.order}`
+		if (activeCategory) filter += `&category=${activeCategory}`
+
+		fetch(
+			`https://62c6ff0674e1381c0a6edc07.mockapi.io/pizzas${filter}`,
+		)
 			.then((res) => {
 				return res.json()
 			})
@@ -19,13 +33,19 @@ const Home = () => {
 				setIsLoading(false)
 			})
 		window.scrollTo(0, 0)
-	}, [])
+	}, [activeCategory, selectedSort])
 
 	return (
 		<div className='container'>
 			<div className='content__top'>
-				<Categories />
-				<Sort />
+				<Categories
+					activeCategory={activeCategory}
+					setActiveCategory={setActiveCategory}
+				/>
+				<Sort
+					selectedSort={selectedSort}
+					setSelectedSort={setSelectedSort}
+				/>
 			</div>
 			<h2 className='content__title'>Все пиццы</h2>
 			<ul className='content__list'>
