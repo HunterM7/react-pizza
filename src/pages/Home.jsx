@@ -4,8 +4,9 @@ import Categories from '../components/Categories'
 import Sort from '../components/Sort'
 import PizzaCard from '../components/PizzaCard/PizzaCard'
 import PizzaCardSkeleton from '../components/PizzaCard/PizzaCardLoader'
+import Pagination from '../components/Pagination/index'
 
-const Home = () => {
+const Home = ({ searchValue }) => {
 	const [pizzas, setPizzas] = React.useState([])
 	const [isLoading, setIsLoading] = React.useState(true)
 	const [activeCategory, setActiveCategory] = React.useState(0)
@@ -14,13 +15,16 @@ const Home = () => {
 		sortProperty: 'rating',
 		order: 'desc',
 	})
+	const [currentPage, setCurrentPage] = React.useState(1)
 
 	React.useEffect(() => {
 		setIsLoading(true)
 
 		let filter = ''
-		filter += `?sortBy=${selectedSort.sortProperty}&order=${selectedSort.order}`
+		filter += `?page=${currentPage}&limit=4`
+		filter += `&sortBy=${selectedSort.sortProperty}&order=${selectedSort.order}`
 		if (activeCategory) filter += `&category=${activeCategory}`
+		if (searchValue) filter += `&title=${searchValue}`
 
 		fetch(
 			`https://62c6ff0674e1381c0a6edc07.mockapi.io/pizzas${filter}`,
@@ -33,7 +37,21 @@ const Home = () => {
 				setIsLoading(false)
 			})
 		window.scrollTo(0, 0)
-	}, [activeCategory, selectedSort])
+	}, [activeCategory, selectedSort, searchValue, currentPage])
+
+	const skeletons = [...new Array(4)].map((_, i) => {
+		return (
+			<li key={i} className='content__items'>
+				<PizzaCardSkeleton />
+			</li>
+		)
+	})
+
+	const pizzaList = pizzas.map((obj) => (
+		<li key={obj.id} className='content__items'>
+			<PizzaCard {...obj} />
+		</li>
+	))
 
 	return (
 		<div className='container'>
@@ -49,22 +67,11 @@ const Home = () => {
 			</div>
 			<h2 className='content__title'>Все пиццы</h2>
 			<ul className='content__list'>
-				{isLoading
-					? [...new Array(8)].map((_, i) => {
-							return (
-								<li key={i} className='content__items'>
-									<PizzaCardSkeleton />
-								</li>
-							)
-					  })
-					: pizzas.map((obj) => {
-							return (
-								<li key={obj.id} className='content__items'>
-									<PizzaCard {...obj} />
-								</li>
-							)
-					  })}
+				{isLoading ? skeletons : pizzaList}
 			</ul>
+			<div className='content__pagination'>
+				<Pagination setCurrentPage={setCurrentPage} />
+			</div>
 		</div>
 	)
 }

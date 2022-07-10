@@ -1,0 +1,73 @@
+//? == Pagination ==
+
+@import '../../scss/variables';
+
+.root {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+
+	li {
+		width: 40px;
+		height: 40px;
+
+		&:not(:last-of-type) {
+			margin-right: 10px;
+		}
+
+		a {
+			font-size: 18px;
+			font-weight: 600;
+			color: $orange;
+
+			width: 100%;
+			height: 100%;
+
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			cursor: pointer;
+			user-select: none;
+
+			border-radius: 30px;
+			border: 1px solid $orange;
+
+			transition: all 0.15s ease-in-out;
+
+			&:hover {
+				color: $white;
+				background-color: $orange;
+			}
+		}
+	}
+
+	:global {
+		.selected {
+			a {
+				color: $white;
+				background-color: $orange;
+			}
+		}
+
+		.disabled {
+			a,
+			a:hover {
+				color: rgba($black, 0.3);
+				border-color: rgba($black, 0.3);
+				background-color: $white;
+
+				cursor: default;
+			}
+		}
+	}
+
+	// :global {
+	// 	.previous {
+	// 		background-color: red;
+	// 	}
+	// 	.next {
+	// 		background-color: red;
+	// 	}
+	// }
+}
