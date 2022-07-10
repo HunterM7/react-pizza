@@ -1,12 +1,14 @@
 import React from 'react'
 
+import { AppContext } from '../App'
+
 import Categories from '../components/Categories'
 import Sort from '../components/Sort'
 import PizzaCard from '../components/PizzaCard/PizzaCard'
 import PizzaCardSkeleton from '../components/PizzaCard/PizzaCardLoader'
 import Pagination from '../components/Pagination/index'
 
-const Home = ({ searchValue }) => {
+const Home = () => {
 	const [pizzas, setPizzas] = React.useState([])
 	const [isLoading, setIsLoading] = React.useState(true)
 	const [activeCategory, setActiveCategory] = React.useState(0)
@@ -16,6 +18,8 @@ const Home = ({ searchValue }) => {
 		order: 'desc',
 	})
 	const [currentPage, setCurrentPage] = React.useState(1)
+
+	const { searchValue } = React.useContext(AppContext)
 
 	React.useEffect(() => {
 		setIsLoading(true)
