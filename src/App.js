@@ -8,13 +8,35 @@ import Home from './pages/Home'
 import Cart from './pages/Cart'
 import NotFound from './pages/NotFound'
 
+import { useSelector, useDispatch } from 'react-redux'
+import { decrement, increment } from './redux/slices/filterSlice'
+
 export const AppContext = React.createContext('')
 
 function App() {
 	const [searchValue, setSearchValue] = React.useState('')
 
+	const count = useSelector((state) => state.counter.count)
+	const dispatch = useDispatch()
+
 	return (
 		<div className='wrapper'>
+			<div>
+				<button
+					aria-label='Increment value'
+					onClick={() => dispatch(increment())}
+				>
+					Increment
+				</button>
+				<span>{count}</span>
+				<button
+					aria-label='Decrement value'
+					onClick={() => dispatch(decrement())}
+				>
+					Decrement
+				</button>
+			</div>
+
 			<AppContext.Provider
 				value={{
 					searchValue,
