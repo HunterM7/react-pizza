@@ -1,0 +1,55 @@
+//? == Logo ==
+
+@import '../../../scss/vars';
+
+.logo {
+	display: grid;
+	grid-template-columns: 38px 1fr;
+	grid-template-areas:
+		'logo title'
+		'logo subtitle';
+	column-gap: 18px;
+	row-gap: 2px;
+	align-items: center;
+	flex-shrink: 0;
+
+	@include noselect;
+
+	// Max-width: 1140px
+	@media (min-width: 821px) and (max-width: 1140px) {
+		grid-template-areas: 'logo title';
+	}
+
+	svg {
+		width: 100%;
+		aspect-ratio: 1/1;
+
+		align-self: center;
+
+		grid-area: logo;
+	}
+}
+
+.title {
+	font-size: 24px;
+	font-weight: 800;
+	color: $dark;
+
+	text-transform: uppercase;
+
+	grid-area: title;
+}
+
+.subtitle {
+	font-size: 16px;
+	font-weight: 400;
+	color: $dark-gray;
+	text-transform: lowercase;
+
+	grid-area: subtitle;
+
+	// Max-width: 1140px
+	@media (min-width: 821px) and (max-width: 1140px) {
+		display: none;
+	}
+}

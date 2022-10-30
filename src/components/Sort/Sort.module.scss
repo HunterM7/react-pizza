@@ -1,0 +1,94 @@
+//? == Sort ==
+
+@import '../../scss/vars';
+
+.sort {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+
+	column-gap: 8px;
+
+	position: relative;
+
+	&__icon {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+
+		transition: transform $trans-medium;
+
+		svg {
+			path {
+				fill: $dark;
+			}
+		}
+
+		&.active {
+			transform: rotate(180deg);
+		}
+	}
+
+	&__title {
+		font-size: 16px;
+		font-weight: 700;
+		color: $dark;
+	}
+
+	&__name {
+		font-size: 16px;
+		font-weight: 400;
+		line-height: 1.21;
+		color: $orange;
+
+		border-bottom: 1px dashed $orange;
+
+		cursor: pointer;
+
+		@include noselect();
+	}
+
+	// Max-width: 1040px
+	@media (max-width: 1040px) {
+		justify-self: end;
+	}
+}
+
+.popup {
+	min-width: 160px;
+
+	padding: 10px 0;
+
+	position: absolute;
+	top: 30px;
+	right: 0;
+
+	z-index: 100;
+
+	border-radius: 10px;
+	background: $white;
+	box-shadow: $shadow-main;
+
+	overflow: hidden;
+
+	&__item {
+		font-size: 16px;
+		font-weight: 400;
+		color: $black;
+
+		padding: 12px 20px;
+
+		cursor: pointer;
+
+		&.active {
+			font-weight: 700;
+			color: $orange;
+		}
+
+		&.active,
+		&:hover {
+			background: rgba($orange, 0.05);
+		}
+	}
+}

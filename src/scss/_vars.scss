@@ -1,0 +1,30 @@
+//? == Vars ==
+
+$white: #fff;
+$black: #000;
+$light: #f9f9f9;
+$light2: #f3f3f3;
+$dark: #2c2c2c;
+$dark-gray: #7b7b7b;
+$orange: #fe5f1e;
+$red: #d53032;
+$background: #ffdf8c;
+
+$duration: 0.15s;
+
+$shadow-main: 0px 5px 15px rgba($black, 0.1);
+$shadow-secondary: 0px 2px 4px rgba($black, 0.04);
+
+$trans-fast: 0.15s ease-in-out;
+$trans-prefast: 0.2s ease-in-out;
+$trans-medium: 0.3s ease-in-out;
+$trans-slow: 0.6s ease-in-out;
+
+@mixin noselect {
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Safari */
+	-khtml-user-select: none; /* Konqueror HTML */
+	-moz-user-select: none; /* Old versions of Firefox */
+	-ms-user-select: none; /* IE / Edge */
+	user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
+}

@@ -1,0 +1,49 @@
+//? == Categories ==
+
+@import '../../scss/vars';
+
+.categories {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+
+	overflow-x: auto;
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
+
+	&__item {
+		font-size: 16px;
+		font-weight: 700;
+		color: $dark;
+
+		border-radius: 30px;
+		background-color: #f9f9f9;
+
+		padding: 14px 30px;
+
+		cursor: pointer;
+
+		transition: background-color $trans-fast;
+
+		@include noselect();
+
+		&:hover {
+			background-color: darken($light, 2%);
+		}
+
+		&:active {
+			background-color: darken($light, 5%);
+		}
+
+		&.active {
+			color: $white;
+			background-color: $dark;
+		}
+
+		&:not(:last-of-type) {
+			margin-right: 10px;
+		}
+	}
+}

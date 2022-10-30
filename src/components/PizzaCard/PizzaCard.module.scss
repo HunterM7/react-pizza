@@ -1,0 +1,83 @@
+//? == PizzaCard ==
+
+@import '../../scss/vars';
+
+.wrapper {
+	width: 280px;
+	text-align: center;
+
+	&:hover {
+		.image {
+			transform: scale(1.05);
+		}
+	}
+}
+
+.image {
+	width: 260px;
+	height: 260px;
+
+	object-fit: contain;
+	object-position: center;
+
+	transition: transform $trans-prefast;
+}
+
+.title {
+	margin-bottom: 20px;
+
+	position: relative;
+}
+
+.selector {
+	padding: 6px;
+	margin-bottom: 20px;
+
+	border-radius: 10px;
+	background-color: $light2;
+
+	&__block {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+
+		&:not(:last-of-type) {
+			margin-bottom: 6px;
+		}
+	}
+
+	&__item {
+		font-size: 14px;
+		font-weight: 600;
+		color: $dark;
+
+		flex: 1;
+
+		padding: 8px;
+
+		cursor: pointer;
+
+		@include noselect();
+
+		&.active {
+			border-radius: 5px;
+			background-color: $white;
+			box-shadow: $shadow-secondary;
+
+			cursor: default;
+		}
+	}
+}
+
+.bottom {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.price {
+	font-size: 22px;
+	font-weight: 700;
+	color: $black;
+}

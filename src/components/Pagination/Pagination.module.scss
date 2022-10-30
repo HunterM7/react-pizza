@@ -1,19 +1,16 @@
 //? == Pagination ==
 
-@import '../../scss/variables';
+@import '../../scss/vars';
 
-.root {
+.wrapper {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	column-gap: 10px;
 
 	li {
 		width: 40px;
 		height: 40px;
-
-		&:not(:last-of-type) {
-			margin-right: 10px;
-		}
 
 		a {
 			font-size: 18px;
@@ -27,17 +24,32 @@
 			justify-content: center;
 			align-items: center;
 
-			cursor: pointer;
-			user-select: none;
-
-			border-radius: 30px;
+			border-radius: 50%;
 			border: 1px solid $orange;
 
-			transition: all 0.15s ease-in-out;
+			transition: color $trans-fast, background-color $trans-fast;
+
+			cursor: pointer;
+
+			@include noselect;
 
 			&:hover {
 				color: $white;
 				background-color: $orange;
+
+				svg {
+					path {
+						stroke: $white;
+
+						transition: stroke $trans-fast;
+					}
+				}
+			}
+
+			svg {
+				path {
+					stroke: $orange;
+				}
 			}
 		}
 	}
@@ -53,21 +65,24 @@
 		.disabled {
 			a,
 			a:hover {
-				color: rgba($black, 0.3);
-				border-color: rgba($black, 0.3);
+				color: rgba($black, 0.2);
+				border-color: rgba($black, 0.2);
 				background-color: $white;
 
 				cursor: default;
+
+				svg {
+					path {
+						stroke: rgba($black, 0.2);
+					}
+				}
+			}
+		}
+
+		.next {
+			a {
+				transform: rotate(180deg);
 			}
 		}
 	}
-
-	// :global {
-	// 	.previous {
-	// 		background-color: red;
-	// 	}
-	// 	.next {
-	// 		background-color: red;
-	// 	}
-	// }
 }
