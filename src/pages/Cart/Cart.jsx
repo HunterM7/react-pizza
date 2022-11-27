@@ -3,103 +3,155 @@ import { Link } from 'react-router-dom'
 
 import styles from './Cart.module.scss'
 
+import Button from '../../components/Button/Button'
+
 // SVGs
 import {
+	arrowIcon,
 	binIcon,
 	cartIcon,
-	minusIcon,
-	plusIcon,
-	triangleIcon,
 } from '../../assets/icons.js'
 
 const Cart = () => {
 	return (
-		<div className={styles.cart}>
-			<div
-				className={`
-					container
-					${styles.cart__container}
-				`}
-			>
-				<div className={styles.cart__top}>
-					<h2 className={styles.content__title}>
-						{cartIcon}
-						Корзина
-					</h2>
-					<div className={styles.cart__clear}>
-						{binIcon}
+		<div className={`container ${styles.container}`}>
+			<div className={styles.header}>
+				<h2 className={styles.header__title}>
+					{cartIcon}
+					Корзина
+				</h2>
+				<button className={styles.allClearBtn}>
+					{binIcon}
+					Очистить корзину
+				</button>
+			</div>
 
-						<span>Очистить корзину</span>
+			<ul className={styles.cartList}>
+				<li className={styles.cartItem}>
+					<div className={styles.cartItem__info}>
+						<img
+							className={styles.cartItem__img}
+							src='https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg'
+							alt='Pizza'
+						/>
+
+						<h3 className={styles.cartItem__title}>
+							Сырный цыпленок
+						</h3>
+						<p className={styles.cartItem__desc}>
+							тонкое тесто, 26 см.
+						</p>
 					</div>
+
+					<div className={styles.cartItem__controls}>
+						<div className={styles.cartItem__count}>
+							<Button icon='minus' round />
+							<span>2</span>
+							<Button icon='plus' round />
+						</div>
+
+						<span className={styles.cartItem__price}>
+							770 ₽
+						</span>
+
+						<Button icon='remove' round />
+					</div>
+				</li>
+
+				<li className={styles.cartItem}>
+					<div className={styles.cartItem__info}>
+						<img
+							className={styles.cartItem__img}
+							src='https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg'
+							alt='Pizza'
+						/>
+
+						<h3 className={styles.cartItem__title}>
+							Сырный цыпленок
+						</h3>
+						<p className={styles.cartItem__desc}>
+							тонкое тесто, 26 см.
+						</p>
+					</div>
+
+					<div className={styles.cartItem__controls}>
+						<div className={styles.cartItem__count}>
+							<Button icon='minus' round />
+							<span>2</span>
+							<Button icon='plus' round />
+						</div>
+
+						<span className={styles.cartItem__price}>
+							770 ₽
+						</span>
+
+						<Button icon='remove' round />
+					</div>
+				</li>
+
+				<li className={styles.cartItem}>
+					<div className={styles.cartItem__info}>
+						<img
+							className={styles.cartItem__img}
+							src='https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg'
+							alt='Pizza'
+						/>
+
+						<h3 className={styles.cartItem__title}>
+							Сырный цыпленок
+						</h3>
+						<p className={styles.cartItem__desc}>
+							тонкое тесто, 26 см.
+						</p>
+					</div>
+
+					<div className={styles.cartItem__controls}>
+						<div className={styles.cartItem__count}>
+							<Button icon='minus' round />
+							<span>2</span>
+							<Button icon='plus' round />
+						</div>
+
+						<span className={styles.cartItem__price}>
+							770 ₽
+						</span>
+
+						<Button icon='remove' round />
+					</div>
+				</li>
+			</ul>
+
+			<div className={styles.footer}>
+				<div className={styles.footer__info}>
+					<p className={styles.footer__text}>
+						Всего пицц: <b>3 шт.</b>
+					</p>
+					<p className={styles.footer__text}>
+						Сумма заказа: <b>900 ₽</b>
+					</p>
 				</div>
 
-				<div className={styles.content__items}>
-					<div className={styles.cart__item}>
-						<div className={styles['cart__item-img']}>
-							<img
-								className='pizza-block__image'
-								src='https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg'
-								alt='Pizza'
-							/>
-						</div>
-						<div className={styles['cart__item-info']}>
-							<h3>Сырный цыпленок</h3>
-							<p>тонкое тесто, 26 см.</p>
-						</div>
-						<div className={styles['cart__item-count']}>
-							<div
-								className={`
-									button button--outline button--circle 
-									${styles['cart__item-count-minus']}
-							`}
-							>
-								{minusIcon}
-							</div>
-							<b>2</b>
-							<div
-								className={`
-								button button--outline button--circle 
-								${styles['cart__item-count-plus']}
-							`}
-							>
-								{plusIcon}
-							</div>
-						</div>
-						<div className={styles['cart__item-price']}>
-							<b>770 ₽</b>
-						</div>
-						<div className={styles['cart__item-remove']}>
-							<div className='button button--outline button--circle'>
-								{plusIcon}
-							</div>
-						</div>
-					</div>
-				</div>
+				<div className={styles.footer__buttons}>
+					<Link
+						to='/'
+						className={`
+							${styles.button}
+							${styles['button--back']}
+						`}
+					>
+						{arrowIcon}
+						Вернуться назад
+					</Link>
 
-				<div className={styles.cart__bottom}>
-					<div className={styles['cart__bottom-details']}>
-						<span>
-							{' '}
-							Всего пицц: <b>3 шт.</b>{' '}
-						</span>
-						<span>
-							{' '}
-							Сумма заказа: <b>900 ₽</b>{' '}
-						</span>
-					</div>
-					<div className={styles['cart__bottom-buttons']}>
-						<Link
-							to='/'
-							className='button button--outline button--add go-back-btn'
-						>
-							{triangleIcon}
-
-							<span>Вернуться назад</span>
-						</Link>
-						<div className='button pay-btn'>
-							<span>Оплатить сейчас</span>
-						</div>
-					</div>
+					<button
+						//  className='button pay-btn'
+						className={`
+							${styles.button}
+							${styles['button--confirm']}
+						`}
+					>
+						Оплатить сейчас
+					</button>
 				</div>
 			</div>
 		</div>

@@ -2,7 +2,7 @@ import React from 'react'
 
 import styles from './Categories.module.scss'
 
-const Categories = ({ categoryId, changeCategory }) => {
+const Categories = ({ categoryId, onChangeCategory }) => {
 	const categoryItems = [
 		'Все',
 		'Мясные',
@@ -16,7 +16,7 @@ const Categories = ({ categoryId, changeCategory }) => {
 			return (
 				<li
 					key={index}
-					onClick={() => changeCategory(index)}
+					onClick={() => onChangeCategory(index)}
 					className={`
 						${styles.categories__item}
 						${index === categoryId ? styles.active : ''}

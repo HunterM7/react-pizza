@@ -1,7 +1,6 @@
 import React from 'react'
 
 import styles from './PizzaCard.module.scss'
-import { plusIcon } from '../../assets/icons'
 
 import Button from '../Button/Button'
 
@@ -66,7 +65,7 @@ const PizzaCard = ({
 				<p className={styles.price}>от {price} ₽</p>
 				<Button
 					title='Добавить'
-					icon={plusIcon}
+					icon='plus'
 					count={0}
 					func={() => console.log('click')}
 				/>

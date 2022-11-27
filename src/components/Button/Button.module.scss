@@ -7,10 +7,10 @@
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
+	flex-shrink: 0;
 	column-gap: 8px;
 
 	padding: 8px 10px;
-	margin-bottom: 10px;
 
 	border-radius: 30px;
 	border: 1px solid $orange;
@@ -20,7 +20,7 @@
 
 	@include noselect;
 
-	transition: background-color $trans-fast;
+	transition: border-color $trans-fast, background-color $trans-fast;
 
 	&:hover {
 		background-color: $orange;
@@ -49,6 +49,54 @@
 		background-color: darken($orange, 8%);
 
 		transform: translateY(1px);
+	}
+
+	&--round {
+		width: 32px;
+		aspect-ratio: 1/1;
+
+		border-radius: 50%;
+		border: 2px solid $orange;
+
+		padding: 0;
+
+		.icon {
+		}
+
+		.title {
+			display: none;
+		}
+
+		.count {
+			display: none;
+		}
+	}
+
+	&--remove {
+		border-color: $light-gray2;
+
+		.icon {
+			svg {
+				transform: rotate(45deg);
+				path {
+					fill: $light-gray2;
+				}
+			}
+		}
+
+		&:hover {
+			border-color: $red;
+			background-color: transparent;
+
+			.icon {
+				svg {
+					transform: rotate(45deg);
+					path {
+						fill: $red;
+					}
+				}
+			}
+		}
 	}
 }
 

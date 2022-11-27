@@ -1,28 +1,33 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
+import QueryString from 'qs'
 
+// Import files
 import styles from './Home.module.scss'
 import { AppContext } from '../../App'
 
+// Redux
+import { useSelector, useDispatch } from 'react-redux'
 import {
 	setCategoryId,
 	setCurrentPage,
+	setFilters,
 } from '../../redux/slices/filterSlice'
 
+// Components
 import Categories from '../../components/Categories/Categories'
-import Sort from '../../components/Sort/Sort'
+import Sort, { sortList } from '../../components/Sort/Sort'
 import PizzaCard from '../../components/PizzaCard/PizzaCard'
 import PizzaCardSkeleton from '../../components/PizzaCard/PizzaCardLoader'
 import Pagination from '../../components/Pagination/Pagination'
+import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
+	// Redux
 	const dispatch = useDispatch()
-	const {
-		categoryId,
-		sort: sortType,
-		currentPage,
-	} = useSelector((state) => state.filter)
+	const { categoryId, sortType, currentPage } = useSelector(
+		(state) => state.filter,
+	)
 
 	const onChangeCategory = (id) => {
 		dispatch(setCategoryId(id))
@@ -31,13 +36,16 @@ const Home = () => {
 	const onChangePage = (num) => {
 		dispatch(setCurrentPage(num))
 	}
+	// --- --- --- --- --- --- --- ---
 
 	const [pizzas, setPizzas] = React.useState([])
 	const [isLoading, setIsLoading] = React.useState(true)
+	const isUrlSearch = React.useRef(false)
+	const isMounted = React.useRef(false)
 
 	const { searchValue } = React.useContext(AppContext)
 
-	React.useEffect(() => {
+	const fetchPizzas = () => {
 		setIsLoading(true)
 
 		let filter = ''
@@ -54,8 +62,61 @@ const Home = () => {
 				setPizzas(res.data)
 				setIsLoading(false)
 			})
+	}
 
+	// URL
+	const navigate = useNavigate()
+
+	React.useEffect(() => {
+		if (isMounted.current) {
+			const queryString = QueryString.stringify({
+				categoryId,
+				sortProperty: sortType.sortProperty,
+				order: sortType.order,
+				currentPage,
+			})
+
+			navigate(`?${queryString}`)
+		}
+		isMounted.current = true
+	}, [categoryId, sortType, currentPage, navigate])
+
+	// --- --- --- --- --- --- --- ---
+
+	// At first render check for URL and send them to Redux
+
+	React.useEffect(() => {
+		const searchValue = window.location.search
+
+		if (searchValue) {
+			const params = QueryString.parse(
+				searchValue.substring(1),
+			)
+
+			const sortType = sortList.find(
+				(obj) =>
+					obj.sortProperty === params.sortProperty &&
+					obj.order === params.order,
+			)
+
+			dispatch(
+				setFilters({
+					...params,
+					sortType,
+				}),
+			)
+			isUrlSearch.current = true
+		}
+	}, [])
+
+	React.useEffect(() => {
 		window.scrollTo(0, 0)
+
+		if (!isUrlSearch.current) {
+			fetchPizzas()
+		}
+
+		isUrlSearch.current = false
 	}, [categoryId, sortType, searchValue, currentPage])
 
 	const skeletons = [...new Array(4)].map((_, i) => {
@@ -77,7 +138,7 @@ const Home = () => {
 			<div className={styles.filters}>
 				<Categories
 					categoryId={categoryId}
-					changeCategory={onChangeCategory}
+					onChangeCategory={onChangeCategory}
 				/>
 				<Sort />
 			</div>

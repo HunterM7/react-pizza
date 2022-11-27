@@ -1,0 +1,7 @@
+React
+Redux Toolkit
+
+axios
+lodash.debounce
+pagination
+query string(url)
