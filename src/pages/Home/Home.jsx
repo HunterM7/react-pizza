@@ -67,6 +67,7 @@ const Home = () => {
 	// URL
 	const navigate = useNavigate()
 
+	// If params were changed and the first render was
 	React.useEffect(() => {
 		if (isMounted.current) {
 			const queryString = QueryString.stringify({
@@ -84,7 +85,6 @@ const Home = () => {
 	// --- --- --- --- --- --- --- ---
 
 	// At first render check for URL and send them to Redux
-
 	React.useEffect(() => {
 		const searchValue = window.location.search
 
@@ -109,6 +109,7 @@ const Home = () => {
 		}
 	}, [])
 
+	// If first render was, then fetch for pizzas
 	React.useEffect(() => {
 		window.scrollTo(0, 0)
 

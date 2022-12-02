@@ -42,7 +42,26 @@ export const sortList = [
 ]
 
 const Sort = () => {
+	// Popup control
 	const [open, setOpen] = React.useState(false)
+	const sortRef = React.useRef()
+
+	React.useEffect(() => {
+		const handleClick = (e) => {
+			if (!e.path.includes(sortRef.current)) {
+				setOpen(false)
+			}
+		}
+
+		document.body.addEventListener('click', handleClick)
+
+		return () => {
+			document.body.removeEventListener(
+				'click',
+				handleClick,
+			)
+		}
+	}, [])
 
 	// Redux
 	const dispatch = useDispatch()
@@ -55,7 +74,7 @@ const Sort = () => {
 	// --- --- --- --- --- --- --- ---
 
 	return (
-		<div className={styles.sort}>
+		<div ref={sortRef} className={styles.sort}>
 			<div
 				className={`
 						${styles.sort__icon}

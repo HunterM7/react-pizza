@@ -1,20 +1,46 @@
 import React from 'react'
 
+// Redux
+import { useDispatch, useSelector } from 'react-redux'
+import { addItem } from '../../redux/slices/cartSlice'
+
 import styles from './PizzaCard.module.scss'
 
 import Button from '../Button/Button'
 
 const PizzaCard = ({
+	id,
 	title,
 	price,
 	imageUrl,
-	sizes,
 	types,
+	sizes,
 }) => {
 	const typeNames = ['тонкое', 'традиционное']
 
 	const [activeType, setActiveType] = React.useState(0)
 	const [activeSize, setActiveSize] = React.useState(0)
+
+	const cartItem = useSelector((state) =>
+		state.cart.items.find((obj) => obj.id === id),
+	)
+
+	const addedCount = cartItem ? cartItem.count : 0
+
+	const dispatch = useDispatch()
+
+	const onClickAdd = () => {
+		const item = {
+			id,
+			title,
+			price,
+			imageUrl,
+			type: typeNames[activeType],
+			size: sizes[activeSize],
+		}
+
+		dispatch(addItem(item))
+	}
 
 	return (
 		<div className={styles.wrapper}>
@@ -66,8 +92,8 @@ const PizzaCard = ({
 				<Button
 					title='Добавить'
 					icon='plus'
-					count={0}
-					func={() => console.log('click')}
+					count={addedCount}
+					func={onClickAdd}
 				/>
 			</div>
 		</div>
