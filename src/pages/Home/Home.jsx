@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import QueryString from 'qs'
 
@@ -13,6 +14,7 @@ import {
 	setCurrentPage,
 	setFilters,
 } from '../../redux/slices/filterSlice'
+import { setItems } from '../../redux/slices/pizzasSlice'
 
 // Components
 import Categories from '../../components/Categories/Categories'
@@ -20,7 +22,8 @@ import Sort, { sortList } from '../../components/Sort/Sort'
 import PizzaCard from '../../components/PizzaCard/PizzaCard'
 import PizzaCardSkeleton from '../../components/PizzaCard/PizzaCardLoader'
 import Pagination from '../../components/Pagination/Pagination'
-import { useNavigate } from 'react-router-dom'
+
+// --- --- --- --- --- --- --- --- --- --- --- ---
 
 const Home = () => {
 	// Redux
@@ -28,6 +31,7 @@ const Home = () => {
 	const { categoryId, sortType, currentPage } = useSelector(
 		(state) => state.filter,
 	)
+	const pizzas = useSelector((state) => state.pizzas.items)
 
 	const onChangeCategory = (id) => {
 		dispatch(setCategoryId(id))
@@ -38,14 +42,13 @@ const Home = () => {
 	}
 	// --- --- --- --- --- --- --- ---
 
-	const [pizzas, setPizzas] = React.useState([])
 	const [isLoading, setIsLoading] = React.useState(true)
 	const isUrlSearch = React.useRef(false)
 	const isMounted = React.useRef(false)
 
 	const { searchValue } = React.useContext(AppContext)
 
-	const fetchPizzas = () => {
+	const fetchPizzas = async () => {
 		setIsLoading(true)
 
 		let filter = ''
@@ -54,14 +57,17 @@ const Home = () => {
 		if (categoryId) filter += `&category=${categoryId}`
 		if (searchValue) filter += `&title=${searchValue}`
 
-		axios
-			.get(
+		try {
+			const { data } = await axios.get(
 				`https://62c6ff0674e1381c0a6edc07.mockapi.io/pizzas${filter}`,
 			)
-			.then((res) => {
-				setPizzas(res.data)
-				setIsLoading(false)
-			})
+
+			dispatch(setItems(data))
+		} catch (error) {
+			console.log('error', error)
+		} finally {
+			setIsLoading(false)
+		}
 	}
 
 	// URL
@@ -81,8 +87,6 @@ const Home = () => {
 		}
 		isMounted.current = true
 	}, [categoryId, sortType, currentPage, navigate])
-
-	// --- --- --- --- --- --- --- ---
 
 	// At first render check for URL and send them to Redux
 	React.useEffect(() => {
