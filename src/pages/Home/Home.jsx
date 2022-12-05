@@ -1,6 +1,5 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
 import QueryString from 'qs'
 
 // Import files
@@ -14,7 +13,7 @@ import {
 	setCurrentPage,
 	setFilters,
 } from '../../redux/slices/filterSlice'
-import { setItems } from '../../redux/slices/pizzasSlice'
+import { fetchPizzas } from '../../redux/slices/pizzasSlice'
 
 // Components
 import Categories from '../../components/Categories/Categories'
@@ -22,6 +21,7 @@ import Sort, { sortList } from '../../components/Sort/Sort'
 import PizzaCard from '../../components/PizzaCard/PizzaCard'
 import PizzaCardSkeleton from '../../components/PizzaCard/PizzaCardLoader'
 import Pagination from '../../components/Pagination/Pagination'
+import NotFound from '../NotFound/NotFound'
 
 // --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -31,7 +31,9 @@ const Home = () => {
 	const { categoryId, sortType, currentPage } = useSelector(
 		(state) => state.filter,
 	)
-	const pizzas = useSelector((state) => state.pizzas.items)
+	const { items: pizzas, status } = useSelector(
+		(state) => state.pizzas,
+	)
 
 	const onChangeCategory = (id) => {
 		dispatch(setCategoryId(id))
@@ -42,32 +44,20 @@ const Home = () => {
 	}
 	// --- --- --- --- --- --- --- ---
 
-	const [isLoading, setIsLoading] = React.useState(true)
 	const isUrlSearch = React.useRef(false)
 	const isMounted = React.useRef(false)
 
 	const { searchValue } = React.useContext(AppContext)
 
-	const fetchPizzas = async () => {
-		setIsLoading(true)
-
-		let filter = ''
-		filter += `?page=${currentPage}&limit=4`
-		filter += `&sortBy=${sortType.sortProperty}&order=${sortType.order}`
-		if (categoryId) filter += `&category=${categoryId}`
-		if (searchValue) filter += `&title=${searchValue}`
-
-		try {
-			const { data } = await axios.get(
-				`https://62c6ff0674e1381c0a6edc07.mockapi.io/pizzas${filter}`,
-			)
-
-			dispatch(setItems(data))
-		} catch (error) {
-			console.log('error', error)
-		} finally {
-			setIsLoading(false)
-		}
+	const getPizzas = () => {
+		dispatch(
+			fetchPizzas({
+				currentPage,
+				sortType,
+				categoryId,
+				searchValue,
+			}),
+		)
 	}
 
 	// URL
@@ -118,7 +108,7 @@ const Home = () => {
 		window.scrollTo(0, 0)
 
 		if (!isUrlSearch.current) {
-			fetchPizzas()
+			getPizzas()
 		}
 
 		isUrlSearch.current = false
@@ -150,9 +140,13 @@ const Home = () => {
 
 			<h2 className={styles.title}>Все пиццы</h2>
 
-			<ul className={styles.pizzas}>
-				{isLoading ? skeletons : pizzaList}
-			</ul>
+			{status === 'error' ? (
+				<NotFound />
+			) : (
+				<ul className={styles.pizzas}>
+					{status === 'loading' ? skeletons : pizzaList}
+				</ul>
+			)}
 
 			<div className={styles.pagination}>
 				<Pagination
