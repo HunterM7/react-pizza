@@ -2,13 +2,25 @@ import React from 'react'
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux'
-import { addItem } from '../../redux/slices/cartSlice'
+import {
+	addItem,
+	selectCartItemById,
+} from '../../redux/slices/cartSlice'
 
 import styles from './PizzaCard.module.scss'
 
 import Button from '../Button/Button'
 
-const PizzaCard = ({
+type PizzaCardProps = {
+	id: string
+	title: string
+	price: number
+	imageUrl: string
+	types: number[]
+	sizes: number[]
+}
+
+const PizzaCard: React.FC<PizzaCardProps> = ({
 	id,
 	title,
 	price,
@@ -16,14 +28,12 @@ const PizzaCard = ({
 	types,
 	sizes,
 }) => {
-	const typeNames = ['тонкое', 'традиционное']
+	const typeNames: string[] = ['тонкое', 'традиционное']
 
 	const [activeType, setActiveType] = React.useState(0)
 	const [activeSize, setActiveSize] = React.useState(0)
 
-	const cartItem = useSelector((state) =>
-		state.cart.items.find((obj) => obj.id === id),
-	)
+	const cartItem = useSelector(selectCartItemById(id))
 
 	const addedCount = cartItem ? cartItem.count : 0
 

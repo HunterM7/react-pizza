@@ -2,13 +2,22 @@ import React from 'react'
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux'
-import { setSortType } from '../../redux/slices/filterSlice'
+import {
+	selectSort,
+	setSortType,
+} from '../../redux/slices/filterSlice'
 
 // Import files and styles
 import styles from './Sort.module.scss'
 import { triangleIcon } from '../../assets/icons'
 
-export const sortList = [
+type SortItem = {
+	name: string
+	sortProperty: string
+	order: string
+}
+
+export const sortList: SortItem[] = [
 	{
 		name: 'популярности (возр.)',
 		sortProperty: 'rating',
@@ -41,13 +50,13 @@ export const sortList = [
 	},
 ]
 
-const Sort = () => {
+const Sort: React.FC = () => {
 	// Popup control
 	const [open, setOpen] = React.useState(false)
-	const sortRef = React.useRef()
+	const sortRef = React.useRef<HTMLDivElement>(null)
 
 	React.useEffect(() => {
-		const handleClick = (e) => {
+		const handleClick = (e: any) => {
 			if (!e.path.includes(sortRef.current)) {
 				setOpen(false)
 			}
@@ -65,11 +74,11 @@ const Sort = () => {
 
 	// Redux
 	const dispatch = useDispatch()
-	const sort = useSelector((state) => state.filter.sortType)
+	const sort = useSelector(selectSort)
 
-	const chooseAndClose = (obj) => {
+	const chooseAndClose = (obj: SortItem) => {
 		dispatch(setSortType(obj))
-		setOpen(!open)
+		setOpen(false)
 	}
 	// --- --- --- --- --- --- --- ---
 

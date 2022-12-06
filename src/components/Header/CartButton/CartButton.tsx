@@ -5,10 +5,11 @@ import { useSelector } from 'react-redux'
 import styles from './CartButton.module.scss'
 import { cartIcon } from '../../../assets/icons'
 
-const CartButton = () => {
-	const { items, totalPrice, totalCount } = useSelector(
-		(state) => state.cart,
-	)
+// Redux
+import { selectCart } from '../../../redux/slices/cartSlice'
+
+const CartButton: React.FC = () => {
+	const { totalPrice, totalCount } = useSelector(selectCart)
 
 	return (
 		<Link to='/cart' className={styles.wrapper}>

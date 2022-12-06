@@ -1,0 +1,23 @@
+//? == Main Layout ==
+
+@import '../../scss/vars';
+
+.wrapper {
+	max-width: 1400px;
+	width: calc(100vw - 100px);
+	height: 100%;
+
+	margin: 50px auto;
+
+	border-radius: 10px;
+	background-color: #fff;
+
+	@media (max-width: 425px) {
+		width: calc(100vw - 30px);
+		margin: 20px auto;
+	}
+}
+
+.main {
+	padding: 40px 0;
+}

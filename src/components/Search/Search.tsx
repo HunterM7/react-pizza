@@ -3,15 +3,23 @@ import debounce from 'lodash.debounce'
 
 import styles from './Search.module.scss'
 import { crossIcon, searchIcon } from '../../assets/icons'
-import { AppContext } from '../../App'
 
-const Search = () => {
+// Redux
+import { useDispatch } from 'react-redux'
+import { setSearchValue } from '../../redux/slices/filterSlice'
+
+const Search: React.FC = () => {
 	const [localSearchValue, setLocalSearchValue] =
 		React.useState('')
-	const { setSearchValue } = React.useContext(AppContext)
+
+	// Redux
+	const dispatch = useDispatch()
+
+	const handleSearchValue = (value: string) =>
+		dispatch(setSearchValue(value))
 
 	// Func for changing input
-	const onChangeInput = (e) => {
+	const onChangeInput = (e: any) => {
 		setLocalSearchValue(e.target.value)
 		updateSearchValue(e.target.value)
 	}
@@ -19,19 +27,20 @@ const Search = () => {
 	// Delay for search request
 	const updateSearchValue = React.useMemo(
 		() =>
-			debounce((str) => {
-				setSearchValue(str)
+			debounce((str: string) => {
+				handleSearchValue(str)
 			}, 300),
-		[setSearchValue],
+		[],
 	)
 
 	// Clear button
-	const inputRef = React.useRef()
+	const inputRef = React.useRef<HTMLInputElement>(null)
 
 	const clearSearchBar = () => {
 		setLocalSearchValue('')
-		setSearchValue('')
-		inputRef.current.focus()
+		handleSearchValue('')
+
+		inputRef.current?.focus()
 	}
 
 	return (

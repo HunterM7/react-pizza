@@ -12,7 +12,17 @@ import {
 	removeItem,
 } from '../../../redux/slices/cartSlice'
 
-const CartItem = ({
+type CartItemProps = {
+	id: string
+	count: number
+	imageUrl: string
+	price: number
+	size: number
+	title: string
+	type: string
+}
+
+const CartItem: React.FC<CartItemProps> = ({
 	id,
 	count,
 	imageUrl,

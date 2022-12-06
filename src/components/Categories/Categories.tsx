@@ -2,8 +2,16 @@ import React from 'react'
 
 import styles from './Categories.module.scss'
 
-const Categories = ({ categoryId, onChangeCategory }) => {
-	const categoryItems = [
+type CategoriesProps = {
+	categoryId: number
+	onChangeCategory: any
+}
+
+const Categories: React.FC<CategoriesProps> = ({
+	categoryId,
+	onChangeCategory,
+}) => {
+	const categoryItems: string[] = [
 		'Все',
 		'Мясные',
 		'Вегетерианские',

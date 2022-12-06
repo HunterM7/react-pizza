@@ -1,10 +1,18 @@
 import React from 'react'
 import ReactPaginate from 'react-paginate'
-import { arrowIcon } from '../../assets/icons'
 
 import styles from './Pagination.module.scss'
+import { arrowIcon } from '../../assets/icons'
 
-const Pagination = ({ currentPage, setCurrentPage }) => {
+type PaginationProps = {
+	currentPage: number
+	setCurrentPage: any
+}
+
+const Pagination: React.FC<PaginationProps> = ({
+	currentPage,
+	setCurrentPage,
+}) => {
 	return (
 		<ReactPaginate
 			className={styles.wrapper}
@@ -15,7 +23,6 @@ const Pagination = ({ currentPage, setCurrentPage }) => {
 			pageRangeDisplayed={4}
 			pageCount={3}
 			forcePage={currentPage - 1}
-			renderOnZeroPageCount={null}
 		/>
 	)
 }

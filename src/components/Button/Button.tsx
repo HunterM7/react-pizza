@@ -1,9 +1,23 @@
 import React from 'react'
-import { minusIcon, plusIcon } from '../../assets/icons'
 
 import styles from './Button.module.scss'
+import { minusIcon, plusIcon } from '../../assets/icons'
 
-const Button = ({ title, icon, count, func, round }) => {
+type ButtonProps = {
+	title?: string
+	icon: string
+	count?: number
+	func: any
+	round?: boolean
+}
+
+const Button: React.FC<ButtonProps> = ({
+	title,
+	icon,
+	count = 0,
+	func,
+	round = false,
+}) => {
 	return (
 		<button
 			className={`

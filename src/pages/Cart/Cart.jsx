@@ -3,7 +3,10 @@ import { Link } from 'react-router-dom'
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux'
-import { clearItems } from '../../redux/slices/cartSlice'
+import {
+	clearItems,
+	selectCart,
+} from '../../redux/slices/cartSlice'
 
 import styles from './Cart.module.scss'
 
@@ -19,9 +22,8 @@ import {
 
 const Cart = () => {
 	const dispatch = useDispatch()
-	const { items, totalPrice, totalCount } = useSelector(
-		(state) => state.cart,
-	)
+	const { items, totalPrice, totalCount } =
+		useSelector(selectCart)
 
 	const itemsList = items.map((obj) => (
 		<li key={obj.id} className={styles.cartItem}>

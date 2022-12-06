@@ -1,10 +1,9 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import QueryString from 'qs'
 
 // Import files
 import styles from './Home.module.scss'
-import { AppContext } from '../../App'
 
 // Redux
 import { useSelector, useDispatch } from 'react-redux'
@@ -12,8 +11,12 @@ import {
 	setCategoryId,
 	setCurrentPage,
 	setFilters,
+	selectFilter,
 } from '../../redux/slices/filterSlice'
-import { fetchPizzas } from '../../redux/slices/pizzasSlice'
+import {
+	fetchPizzas,
+	selectPizzas,
+} from '../../redux/slices/pizzasSlice'
 
 // Components
 import Categories from '../../components/Categories/Categories'
@@ -28,12 +31,10 @@ import NotFound from '../NotFound/NotFound'
 const Home = () => {
 	// Redux
 	const dispatch = useDispatch()
-	const { categoryId, sortType, currentPage } = useSelector(
-		(state) => state.filter,
-	)
-	const { items: pizzas, status } = useSelector(
-		(state) => state.pizzas,
-	)
+	const { categoryId, sortType, currentPage, searchValue } =
+		useSelector(selectFilter)
+	const { items: pizzas, status } =
+		useSelector(selectPizzas)
 
 	const onChangeCategory = (id) => {
 		dispatch(setCategoryId(id))
@@ -46,8 +47,6 @@ const Home = () => {
 
 	const isUrlSearch = React.useRef(false)
 	const isMounted = React.useRef(false)
-
-	const { searchValue } = React.useContext(AppContext)
 
 	const getPizzas = () => {
 		dispatch(
@@ -124,7 +123,9 @@ const Home = () => {
 
 	const pizzaList = pizzas.map((obj) => (
 		<li key={obj.id} className={styles.pizzas__item}>
-			<PizzaCard {...obj} />
+			<NavLink to={`\pizza-${obj.id}`}>
+				<PizzaCard {...obj} />
+			</NavLink>
 		</li>
 	))
 

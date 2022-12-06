@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import styles from './Logo.module.scss'
 import { logo } from '../../../assets/icons'
 
-const Logo = () => {
+const Logo: React.FC = () => {
 	return (
 		<Link to={'/'} className={styles.logo}>
 			{logo}
