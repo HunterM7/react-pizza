@@ -5,7 +5,7 @@ import styles from './MainLayout.module.scss'
 
 import Header from '../../components/Header/Header'
 
-const MainLayout = () => {
+const MainLayout: React.FC = () => {
 	return (
 		<div className={styles.wrapper}>
 			<Header />

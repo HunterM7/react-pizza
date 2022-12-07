@@ -7,7 +7,7 @@ type ButtonProps = {
 	title?: string
 	icon: string
 	count?: number
-	func: any
+	func: () => void
 	round?: boolean
 }
 

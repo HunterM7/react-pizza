@@ -19,7 +19,9 @@ const Search: React.FC = () => {
 		dispatch(setSearchValue(value))
 
 	// Func for changing input
-	const onChangeInput = (e: any) => {
+	const onChangeInput = (
+		e: React.ChangeEvent<HTMLInputElement>,
+	) => {
 		setLocalSearchValue(e.target.value)
 		updateSearchValue(e.target.value)
 	}

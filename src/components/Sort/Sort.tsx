@@ -56,8 +56,15 @@ const Sort: React.FC = () => {
 	const sortRef = React.useRef<HTMLDivElement>(null)
 
 	React.useEffect(() => {
-		const handleClick = (e: any) => {
-			if (!e.path.includes(sortRef.current)) {
+		const handleClick = (e: MouseEvent) => {
+			const _e = e as MouseEvent & {
+				path: Node[]
+			}
+
+			if (
+				sortRef.current &&
+				!_e.path.includes(sortRef.current)
+			) {
 				setOpen(false)
 			}
 		}

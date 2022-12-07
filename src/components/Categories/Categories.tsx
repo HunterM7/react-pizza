@@ -4,21 +4,21 @@ import styles from './Categories.module.scss'
 
 type CategoriesProps = {
 	categoryId: number
-	onChangeCategory: any
+	onChangeCategory: (id: number) => void
 }
+
+const categoryItems: string[] = [
+	'Все',
+	'Мясные',
+	'Вегетерианские',
+	'Гриль',
+	'Острые',
+]
 
 const Categories: React.FC<CategoriesProps> = ({
 	categoryId,
 	onChangeCategory,
 }) => {
-	const categoryItems: string[] = [
-		'Все',
-		'Мясные',
-		'Вегетерианские',
-		'Гриль',
-		'Острые',
-	]
-
 	const CategoriesList = categoryItems.map(
 		(item, index) => {
 			return (

@@ -20,12 +20,12 @@ import {
 	cartIcon,
 } from '../../assets/icons.js'
 
-const Cart = () => {
+const Cart: React.FC = () => {
 	const dispatch = useDispatch()
 	const { items, totalPrice, totalCount } =
 		useSelector(selectCart)
 
-	const itemsList = items.map((obj) => (
+	const itemsList = items.map((obj: any) => (
 		<li key={obj.id} className={styles.cartItem}>
 			<CartItem {...obj} />
 		</li>

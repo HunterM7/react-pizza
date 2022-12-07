@@ -28,7 +28,7 @@ import NotFound from '../NotFound/NotFound'
 
 // --- --- --- --- --- --- --- --- --- --- --- ---
 
-const Home = () => {
+const Home: React.FC = () => {
 	// Redux
 	const dispatch = useDispatch()
 	const { categoryId, sortType, currentPage, searchValue } =
@@ -36,11 +36,11 @@ const Home = () => {
 	const { items: pizzas, status } =
 		useSelector(selectPizzas)
 
-	const onChangeCategory = (id) => {
+	const onChangeCategory = (id: number) => {
 		dispatch(setCategoryId(id))
 	}
 
-	const onChangePage = (num) => {
+	const onChangePage = (num: number) => {
 		dispatch(setCurrentPage(num))
 	}
 	// --- --- --- --- --- --- --- ---
@@ -50,6 +50,7 @@ const Home = () => {
 
 	const getPizzas = () => {
 		dispatch(
+			// @ts-ignore
 			fetchPizzas({
 				currentPage,
 				sortType,
@@ -121,7 +122,7 @@ const Home = () => {
 		)
 	})
 
-	const pizzaList = pizzas.map((obj) => (
+	const pizzaList = pizzas.map((obj: any) => (
 		<li key={obj.id} className={styles.pizzas__item}>
 			<NavLink to={`\pizza-${obj.id}`}>
 				<PizzaCard {...obj} />
