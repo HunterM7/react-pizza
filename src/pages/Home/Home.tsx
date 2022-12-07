@@ -36,13 +36,12 @@ const Home: React.FC = () => {
 	const { items: pizzas, status } =
 		useSelector(selectPizzas)
 
-	const onChangeCategory = (id: number) => {
+	const onChangeCategory = (id: number) =>
 		dispatch(setCategoryId(id))
-	}
 
-	const onChangePage = (num: number) => {
+	const onChangePage = (num: number) =>
 		dispatch(setCurrentPage(num))
-	}
+
 	// --- --- --- --- --- --- --- ---
 
 	const isUrlSearch = React.useRef(false)
