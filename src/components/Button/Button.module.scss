@@ -78,6 +78,8 @@
 		.icon {
 			svg {
 				transform: rotate(45deg);
+
+				transition: transform $trans-medium;
 				path {
 					fill: $light-gray2;
 				}
@@ -86,16 +88,35 @@
 
 		&:hover {
 			border-color: $red;
-			background-color: transparent;
+			background: transparent;
 
 			.icon {
 				svg {
-					transform: rotate(45deg);
+					transform: rotate(225deg);
 					path {
 						fill: $red;
 					}
 				}
 			}
+		}
+	}
+
+	&:disabled {
+		border-color: $light-gray2;
+		background-color: transparent;
+
+		cursor: default;
+
+		.icon {
+			svg {
+				path {
+					fill: $light-gray2;
+				}
+			}
+		}
+
+		&:active {
+			transform: none;
 		}
 	}
 }

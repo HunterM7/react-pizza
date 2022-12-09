@@ -37,8 +37,10 @@ const Home: React.FC = () => {
 	const { items: pizzas, status } =
 		useSelector(selectPizzas)
 
-	const onChangeCategory = (id: number) =>
-		dispatch(setCategoryId(id))
+	const onChangeCategory = React.useCallback(
+		(id: number) => dispatch(setCategoryId(id)),
+		[],
+	)
 
 	const onChangePage = (num: number) =>
 		dispatch(setCurrentPage(num))

@@ -2,8 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 // Redux
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import {
+	CartItemType,
 	clearItems,
 	selectCart,
 } from '../../redux/slices/cartSlice'
@@ -12,6 +13,7 @@ import styles from './Cart.module.scss'
 
 import CartItem from './CartItem/CartItem'
 import CartEmpty from './CartEmpty/CartEmpty'
+import { useAppDispatch } from '../../redux/store'
 
 // SVGs
 import {
@@ -21,11 +23,11 @@ import {
 } from '../../assets/icons.js'
 
 const Cart: React.FC = () => {
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 	const { items, totalPrice, totalCount } =
 		useSelector(selectCart)
 
-	const itemsList = items.map((obj: any) => (
+	const itemsList = items.map((obj: CartItemType) => (
 		<li key={obj.id} className={styles.cartItem}>
 			<CartItem {...obj} />
 		</li>

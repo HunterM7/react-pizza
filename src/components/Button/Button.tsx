@@ -9,6 +9,7 @@ type ButtonProps = {
 	count?: number
 	func: () => void
 	round?: boolean
+	isDisabled?: boolean
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -17,6 +18,7 @@ const Button: React.FC<ButtonProps> = ({
 	count = 0,
 	func,
 	round = false,
+	isDisabled = false,
 }) => {
 	return (
 		<button
@@ -26,6 +28,7 @@ const Button: React.FC<ButtonProps> = ({
 			${icon === 'remove' ? styles['wrapper--remove'] : ''}
 		`}
 			onClick={func}
+			disabled={isDisabled}
 		>
 			{icon && (
 				<div className={styles.icon}>

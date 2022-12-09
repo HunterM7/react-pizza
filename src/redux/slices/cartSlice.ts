@@ -41,21 +41,17 @@ const cartSlice = createSlice({
 				state.items.push({ ...action.payload, count: 1 })
 			}
 
-			state.totalPrice = state.items.reduce(
-				(sum, obj) => sum + obj.price * obj.count,
-				0,
-			)
-
-			state.totalCount = state.items.reduce(
-				(sum, obj) => sum + obj.count,
-				0,
-			)
+			refreshTotalPrice(state)
+			refreshTotalCount(state)
 		},
 
 		removeItem(state, action: PayloadAction<string>) {
 			state.items = state.items.filter(
 				(obj) => obj.id !== action.payload,
 			)
+
+			refreshTotalPrice(state)
+			refreshTotalCount(state)
 		},
 
 		plusItem(state, action: PayloadAction<string>) {
@@ -65,6 +61,9 @@ const cartSlice = createSlice({
 
 			if (findItem) {
 				findItem.count++
+
+				refreshTotalPrice(state)
+				refreshTotalCount(state)
 			}
 		},
 
@@ -75,6 +74,9 @@ const cartSlice = createSlice({
 
 			if (findItem) {
 				findItem.count--
+
+				refreshTotalPrice(state)
+				refreshTotalCount(state)
 			}
 		},
 
@@ -86,11 +88,27 @@ const cartSlice = createSlice({
 	},
 })
 
+const refreshTotalPrice = (state: CartSliceState) => {
+	state.totalPrice = state.items.reduce(
+		(sum, obj) => sum + obj.price * obj.count,
+		0,
+	)
+}
+
+const refreshTotalCount = (state: CartSliceState) => {
+	state.totalCount = state.items.reduce(
+		(sum, obj) => sum + obj.count,
+		0,
+	)
+}
+
 // Selectors
 export const selectCart = (state: RootState) => state.cart
 export const selectCartItemById =
 	(id: string) => (state: RootState) =>
-		state.cart.items.find((obj: CartItemType) => obj.id === id)
+		state.cart.items.find(
+			(obj: CartItemType) => obj.id === id,
+		)
 // --- --- --- --- --- --- --- ---
 
 export const {

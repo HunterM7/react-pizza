@@ -50,7 +50,7 @@ export const sortList: SortType[] = [
 	},
 ]
 
-const Sort: React.FC = () => {
+const Sort: React.FC = React.memo(() => {
 	// Popup control
 	const [open, setOpen] = React.useState(false)
 	const sortRef = React.useRef<HTMLDivElement>(null)
@@ -129,6 +129,6 @@ const Sort: React.FC = () => {
 			)}
 		</div>
 	)
-}
+})
 
 export default Sort

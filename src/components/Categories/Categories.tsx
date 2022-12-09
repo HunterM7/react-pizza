@@ -15,30 +15,31 @@ const categoryItems: string[] = [
 	'Острые',
 ]
 
-const Categories: React.FC<CategoriesProps> = ({
-	categoryId,
-	onChangeCategory,
-}) => {
-	const CategoriesList = categoryItems.map(
-		(item, index) => {
-			return (
-				<li
-					key={index}
-					onClick={() => onChangeCategory(index)}
-					className={`
+const Categories: React.FC<CategoriesProps> = React.memo(
+	({ categoryId, onChangeCategory }) => {
+		const CategoriesList = categoryItems.map(
+			(item, index) => {
+				return (
+					<li
+						key={index}
+						onClick={() => onChangeCategory(index)}
+						className={`
 						${styles.categories__item}
 						${index === categoryId ? styles.active : ''}
 					`}
-				>
-					{item}
-				</li>
-			)
-		},
-	)
+					>
+						{item}
+					</li>
+				)
+			},
+		)
 
-	return (
-		<ul className={styles.categories}>{CategoriesList}</ul>
-	)
-}
+		return (
+			<ul className={styles.categories}>
+				{CategoriesList}
+			</ul>
+		)
+	},
+)
 
 export default Categories

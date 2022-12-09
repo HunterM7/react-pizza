@@ -12,6 +12,7 @@ import {
 	plusItem,
 	removeItem,
 } from '../../../redux/slices/cartSlice'
+import { useAppDispatch } from '../../../redux/store'
 
 const CartItem: React.FC<CartItemType> = ({
 	id,
@@ -22,7 +23,7 @@ const CartItem: React.FC<CartItemType> = ({
 	title,
 	type,
 }) => {
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 
 	const onClickPlus = () => {
 		dispatch(plusItem(id))
@@ -55,9 +56,19 @@ const CartItem: React.FC<CartItemType> = ({
 
 			<div className={styles.controls}>
 				<div className={styles.controls__count}>
-					<Button icon='minus' round func={onClickMinus} />
+					<Button
+						isDisabled={count <= 1}
+						icon='minus'
+						round
+						func={onClickMinus}
+					/>
 					<span>{count}</span>
-					<Button icon='plus' round func={onClickPlus} />
+					<Button
+						isDisabled={count >= 10}
+						icon='plus'
+						round
+						func={onClickPlus}
+					/>
 				</div>
 
 				<span className={styles.controls__price}>
