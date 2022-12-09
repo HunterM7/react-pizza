@@ -4,12 +4,14 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
 	addItem,
+	CartItemType,
 	selectCartItemById,
 } from '../../redux/slices/cartSlice'
 
 import styles from './PizzaCard.module.scss'
 
 import Button from '../Button/Button'
+import { NavLink } from 'react-router-dom'
 
 type PizzaCardProps = {
 	id: string
@@ -40,13 +42,14 @@ const PizzaCard: React.FC<PizzaCardProps> = ({
 	const dispatch = useDispatch()
 
 	const onClickAdd = () => {
-		const item = {
+		const item: CartItemType = {
 			id,
 			title,
 			price,
 			imageUrl,
 			type: typeNames[activeType],
 			size: sizes[activeSize],
+			count: 0,
 		}
 
 		dispatch(addItem(item))
@@ -54,13 +57,15 @@ const PizzaCard: React.FC<PizzaCardProps> = ({
 
 	return (
 		<div className={styles.wrapper}>
-			<img
-				className={styles.image}
-				src={imageUrl}
-				alt='Pizza preview'
-			/>
+			<NavLink to={`\pizza-${id}`}>
+				<img
+					className={styles.image}
+					src={imageUrl}
+					alt='Pizza preview'
+				/>
 
-			<h4 className={styles.title}>{title}</h4>
+				<h4 className={styles.title}>{title}</h4>
+			</NavLink>
 
 			<div className={styles.selector}>
 				<ul className={styles.selector__block}>

@@ -7,22 +7,13 @@ import styles from './CartItem.module.scss'
 
 import Button from '../../../components/Button/Button'
 import {
+	CartItemType,
 	minusItem,
 	plusItem,
 	removeItem,
 } from '../../../redux/slices/cartSlice'
 
-type CartItemProps = {
-	id: string
-	count: number
-	imageUrl: string
-	price: number
-	size: number
-	title: string
-	type: string
-}
-
-const CartItem: React.FC<CartItemProps> = ({
+const CartItem: React.FC<CartItemType> = ({
 	id,
 	count,
 	imageUrl,

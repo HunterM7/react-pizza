@@ -1,12 +1,12 @@
 import React from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import QueryString from 'qs'
 
 // Import files
 import styles from './Home.module.scss'
 
 // Redux
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import {
 	setCategoryId,
 	setCurrentPage,
@@ -25,12 +25,13 @@ import PizzaCard from '../../components/PizzaCard/PizzaCard'
 import PizzaCardSkeleton from '../../components/PizzaCard/PizzaCardLoader'
 import Pagination from '../../components/Pagination/Pagination'
 import NotFound from '../NotFound/NotFound'
+import { useAppDispatch } from '../../redux/store'
 
 // --- --- --- --- --- --- --- --- --- --- --- ---
 
 const Home: React.FC = () => {
 	// Redux
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 	const { categoryId, sortType, currentPage, searchValue } =
 		useSelector(selectFilter)
 	const { items: pizzas, status } =
@@ -49,7 +50,6 @@ const Home: React.FC = () => {
 
 	const getPizzas = () => {
 		dispatch(
-			// @ts-ignore
 			fetchPizzas({
 				currentPage,
 				sortType,
@@ -70,21 +70,36 @@ const Home: React.FC = () => {
 				sortProperty: sortType.sortProperty,
 				order: sortType.order,
 				currentPage,
+				searchValue,
 			})
 
 			navigate(`?${queryString}`)
 		}
 		isMounted.current = true
-	}, [categoryId, sortType, currentPage, navigate])
+	}, [
+		categoryId,
+		sortType,
+		currentPage,
+		searchValue,
+		navigate,
+	])
 
 	// At first render check for URL and send them to Redux
 	React.useEffect(() => {
-		const searchValue = window.location.search
+		const UrlSearchValue = window.location.search
 
-		if (searchValue) {
+		if (UrlSearchValue) {
+			type SearchPizzaParams = {
+				categoryId: string
+				currentPage: string
+				order: string
+				sortProperty: string
+				searchValue: string
+			}
+
 			const params = QueryString.parse(
-				searchValue.substring(1),
-			)
+				UrlSearchValue.substring(1),
+			) as SearchPizzaParams
 
 			const sortType = sortList.find(
 				(obj) =>
@@ -94,10 +109,13 @@ const Home: React.FC = () => {
 
 			dispatch(
 				setFilters({
-					...params,
-					sortType,
+					searchValue: params.searchValue,
+					categoryId: +params.categoryId,
+					currentPage: +params.currentPage,
+					sortType: sortType || sortList[0],
 				}),
 			)
+
 			isUrlSearch.current = true
 		}
 	}, [])
@@ -123,9 +141,7 @@ const Home: React.FC = () => {
 
 	const pizzaList = pizzas.map((obj: any) => (
 		<li key={obj.id} className={styles.pizzas__item}>
-			<NavLink to={`\pizza-${obj.id}`}>
-				<PizzaCard {...obj} />
-			</NavLink>
+			<PizzaCard {...obj} />
 		</li>
 	))
 

@@ -3,6 +3,12 @@ import React from 'react'
 // Redux
 import { useDispatch, useSelector } from 'react-redux'
 import {
+	SortName,
+	SortOrder,
+	SortPropertyEnum,
+	SortType,
+} from '../../redux/slices/pizzasSlice'
+import {
 	selectSort,
 	setSortType,
 } from '../../redux/slices/filterSlice'
@@ -11,42 +17,36 @@ import {
 import styles from './Sort.module.scss'
 import { triangleIcon } from '../../assets/icons'
 
-type SortItem = {
-	name: string
-	sortProperty: string
-	order: string
-}
-
-export const sortList: SortItem[] = [
+export const sortList: SortType[] = [
 	{
-		name: 'популярности (возр.)',
-		sortProperty: 'rating',
-		order: 'asc',
+		name: SortName.RATING_ASC,
+		sortProperty: SortPropertyEnum.RATING,
+		order: SortOrder.ASC,
 	},
 	{
-		name: 'популярности (убыв.)',
-		sortProperty: 'rating',
-		order: 'desc',
+		name: SortName.RATING_DESC,
+		sortProperty: SortPropertyEnum.RATING,
+		order: SortOrder.DESC,
 	},
 	{
-		name: 'цене (возр.)',
-		sortProperty: 'price',
-		order: 'asc',
+		name: SortName.PRICE_ASC,
+		sortProperty: SortPropertyEnum.PRICE,
+		order: SortOrder.ASC,
 	},
 	{
-		name: 'цене (убыв.)',
-		sortProperty: 'price',
-		order: 'desc',
+		name: SortName.PRICE_DESC,
+		sortProperty: SortPropertyEnum.PRICE,
+		order: SortOrder.DESC,
 	},
 	{
-		name: 'алфавиту (возр.)',
-		sortProperty: 'title',
-		order: 'asc',
+		name: SortName.TITLE_ASC,
+		sortProperty: SortPropertyEnum.TITLE,
+		order: SortOrder.ASC,
 	},
 	{
-		name: 'алфавиту (убыв.)',
-		sortProperty: 'title',
-		order: 'desc',
+		name: SortName.TITLE_DESC,
+		sortProperty: SortPropertyEnum.TITLE,
+		order: SortOrder.DESC,
 	},
 ]
 
@@ -83,7 +83,7 @@ const Sort: React.FC = () => {
 	const dispatch = useDispatch()
 	const sort = useSelector(selectSort)
 
-	const chooseAndClose = (obj: SortItem) => {
+	const chooseAndClose = (obj: SortType) => {
 		dispatch(setSortType(obj))
 		setOpen(false)
 	}
