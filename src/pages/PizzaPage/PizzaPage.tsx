@@ -1,18 +1,11 @@
 import React from 'react'
 import axios from 'axios'
 import { useNavigate, useParams } from 'react-router-dom'
+import { PizzaItem } from '../../redux/pizzas/types'
 
 const PizzaPage: React.FC = () => {
 	const { id } = useParams()
-	const [pizza, setPizza] = React.useState<{
-		imageUrl: string
-		title: string
-		types: number[]
-		sizes: number[]
-		price: number
-		category: number[]
-		rating: number
-	}>()
+	const [pizza, setPizza] = React.useState<PizzaItem>()
 
 	const navigate = useNavigate()
 
@@ -31,6 +24,7 @@ const PizzaPage: React.FC = () => {
 				navigate('/')
 			}
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	if (!pizza) {

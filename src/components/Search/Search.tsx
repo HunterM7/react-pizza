@@ -6,7 +6,7 @@ import { crossIcon, searchIcon } from '../../assets/icons'
 
 // Redux
 import { useDispatch } from 'react-redux'
-import { setSearchValue } from '../../redux/slices/filterSlice'
+import { setSearchValue } from '../../redux/filter/slice'
 
 const Search: React.FC = () => {
 	const [localSearchValue, setLocalSearchValue] =

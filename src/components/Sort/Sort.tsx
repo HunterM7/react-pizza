@@ -7,11 +7,9 @@ import {
 	SortOrder,
 	SortPropertyEnum,
 	SortType,
-} from '../../redux/slices/pizzasSlice'
-import {
-	selectSort,
-	setSortType,
-} from '../../redux/slices/filterSlice'
+} from '../../redux/pizzas/types'
+import { setSortType } from '../../redux/filter/slice'
+import { selectSort } from '../../redux/filter/selectors'
 
 // Import files and styles
 import styles from './Sort.module.scss'

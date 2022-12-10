@@ -3,17 +3,13 @@ import { Link } from 'react-router-dom'
 
 // Redux
 import { useSelector } from 'react-redux'
-import {
-	CartItemType,
-	clearItems,
-	selectCart,
-} from '../../redux/slices/cartSlice'
-
-import styles from './Cart.module.scss'
-
-import CartItem from './CartItem/CartItem'
-import CartEmpty from './CartEmpty/CartEmpty'
 import { useAppDispatch } from '../../redux/store'
+import { CartItemType } from '../../redux/cart/types'
+import { clearItems } from '../../redux/cart/slice'
+import { selectCart } from '../../redux/cart/selectors'
+
+// Files
+import styles from './Cart.module.scss'
 
 // SVGs
 import {
@@ -21,6 +17,10 @@ import {
 	binIcon,
 	cartIcon,
 } from '../../assets/icons.js'
+
+// Components
+import CartItem from './CartItem/CartItem'
+import CartEmpty from './CartEmpty/CartEmpty'
 
 const Cart: React.FC = () => {
 	const dispatch = useAppDispatch()

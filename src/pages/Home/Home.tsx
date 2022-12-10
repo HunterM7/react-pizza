@@ -7,16 +7,15 @@ import styles from './Home.module.scss'
 
 // Redux
 import { useSelector } from 'react-redux'
+import { useAppDispatch } from '../../redux/store'
 import {
 	setCategoryId,
 	setCurrentPage,
 	setFilters,
-	selectFilter,
-} from '../../redux/slices/filterSlice'
-import {
-	fetchPizzas,
-	selectPizzas,
-} from '../../redux/slices/pizzasSlice'
+} from '../../redux/filter/slice'
+import { fetchPizzas } from '../../redux/pizzas/asyncActions'
+import { selectPizzas } from '../../redux/pizzas/selectors'
+import { selectFilter } from '../../redux/filter/selectors'
 
 // Components
 import Categories from '../../components/Categories/Categories'
@@ -25,7 +24,6 @@ import PizzaCard from '../../components/PizzaCard/PizzaCard'
 import PizzaCardSkeleton from '../../components/PizzaCard/PizzaCardLoader'
 import Pagination from '../../components/Pagination/Pagination'
 import NotFound from '../NotFound/NotFound'
-import { useAppDispatch } from '../../redux/store'
 
 // --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -120,6 +118,7 @@ const Home: React.FC = () => {
 
 			isUrlSearch.current = true
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	// If first render was, then fetch for pizzas

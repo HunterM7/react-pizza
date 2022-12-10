@@ -1,12 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 
+// Files
 import styles from './CartButton.module.scss'
 import { cartIcon } from '../../../assets/icons'
 
 // Redux
-import { selectCart } from '../../../redux/slices/cartSlice'
+import { useSelector } from 'react-redux'
+import { selectCart } from '../../../redux/cart/selectors'
 
 const CartButton: React.FC = () => {
 	const { totalPrice, totalCount } = useSelector(selectCart)

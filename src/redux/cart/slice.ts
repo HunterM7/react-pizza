@@ -2,29 +2,15 @@ import {
 	createSlice,
 	PayloadAction,
 } from '@reduxjs/toolkit'
-import { RootState } from '../store'
 
-export type CartItemType = {
-	id: string
-	title: string
-	price: number
-	imageUrl: string
-	type: string
-	size: number
-	count: number
-}
+import { CartItemType, CartSliceState } from './types'
 
-interface CartSliceState {
-	totalPrice: number
-	totalCount: number
-	items: CartItemType[]
-}
+// Functions
+import { getCartFromLS } from '../../utils/getCartFromLS'
+import { calcTotalPrice } from '../../utils/calcTotalPrice'
+import { calcTotalCount } from '../../utils/calcTotalCount'
 
-const initialState: CartSliceState = {
-	totalPrice: 0,
-	totalCount: 0,
-	items: [],
-}
+const initialState: CartSliceState = getCartFromLS()
 
 const cartSlice = createSlice({
 	name: 'cart',
@@ -41,8 +27,8 @@ const cartSlice = createSlice({
 				state.items.push({ ...action.payload, count: 1 })
 			}
 
-			refreshTotalPrice(state)
-			refreshTotalCount(state)
+			state.totalPrice = calcTotalPrice(state.items)
+			state.totalCount = calcTotalCount(state.items)
 		},
 
 		removeItem(state, action: PayloadAction<string>) {
@@ -50,8 +36,8 @@ const cartSlice = createSlice({
 				(obj) => obj.id !== action.payload,
 			)
 
-			refreshTotalPrice(state)
-			refreshTotalCount(state)
+			state.totalPrice = calcTotalPrice(state.items)
+			state.totalCount = calcTotalCount(state.items)
 		},
 
 		plusItem(state, action: PayloadAction<string>) {
@@ -62,8 +48,8 @@ const cartSlice = createSlice({
 			if (findItem) {
 				findItem.count++
 
-				refreshTotalPrice(state)
-				refreshTotalCount(state)
+				state.totalPrice = calcTotalPrice(state.items)
+				state.totalCount = calcTotalCount(state.items)
 			}
 		},
 
@@ -75,8 +61,8 @@ const cartSlice = createSlice({
 			if (findItem) {
 				findItem.count--
 
-				refreshTotalPrice(state)
-				refreshTotalCount(state)
+				state.totalPrice = calcTotalPrice(state.items)
+				state.totalCount = calcTotalCount(state.items)
 			}
 		},
 
@@ -87,29 +73,6 @@ const cartSlice = createSlice({
 		},
 	},
 })
-
-const refreshTotalPrice = (state: CartSliceState) => {
-	state.totalPrice = state.items.reduce(
-		(sum, obj) => sum + obj.price * obj.count,
-		0,
-	)
-}
-
-const refreshTotalCount = (state: CartSliceState) => {
-	state.totalCount = state.items.reduce(
-		(sum, obj) => sum + obj.count,
-		0,
-	)
-}
-
-// Selectors
-export const selectCart = (state: RootState) => state.cart
-export const selectCartItemById =
-	(id: string) => (state: RootState) =>
-		state.cart.items.find(
-			(obj: CartItemType) => obj.id === id,
-		)
-// --- --- --- --- --- --- --- ---
 
 export const {
 	addItem,

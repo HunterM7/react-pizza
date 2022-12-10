@@ -1,18 +1,19 @@
 import React from 'react'
 
 // Redux
-import { useDispatch } from 'react-redux'
-
-import styles from './CartItem.module.scss'
-
-import Button from '../../../components/Button/Button'
+import { useAppDispatch } from '../../../redux/store'
+import { CartItemType } from '../../../redux/cart/types'
 import {
-	CartItemType,
 	minusItem,
 	plusItem,
 	removeItem,
-} from '../../../redux/slices/cartSlice'
-import { useAppDispatch } from '../../../redux/store'
+} from '../../../redux/cart/slice'
+
+// Files
+import styles from './CartItem.module.scss'
+
+// Components
+import Button from '../../../components/Button/Button'
 
 const CartItem: React.FC<CartItemType> = ({
 	id,

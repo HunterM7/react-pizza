@@ -2,14 +2,13 @@ import {
 	createSlice,
 	PayloadAction,
 } from '@reduxjs/toolkit'
-import { RootState } from '../store'
 import {
 	FetchPizzas,
 	SortName,
 	SortOrder,
 	SortPropertyEnum,
 	SortType,
-} from './pizzasSlice'
+} from '../pizzas/types'
 
 const initialState: FetchPizzas = {
 	searchValue: '',
@@ -57,13 +56,6 @@ const filterSlice = createSlice({
 		},
 	},
 })
-
-// Selectors
-export const selectFilter = (state: RootState) =>
-	state.filter
-export const selectSort = (state: RootState) =>
-	state.filter.sortType
-// --- --- --- --- --- --- --- ---
 
 export const {
 	setSearchValue,
