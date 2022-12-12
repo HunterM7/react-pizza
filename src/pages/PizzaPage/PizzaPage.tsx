@@ -1,7 +1,7 @@
 import React from 'react'
-import axios from 'axios'
 import { useNavigate, useParams } from 'react-router-dom'
 import { PizzaItem } from '../../redux/pizzas/types'
+import { getPizzaById } from '../../redux/pizzas/asyncActions'
 
 const PizzaPage: React.FC = () => {
 	const { id } = useParams()
@@ -14,11 +14,11 @@ const PizzaPage: React.FC = () => {
 
 		async function fetchPizzas() {
 			try {
-				const { data } = await axios.get(
-					`https://62c6ff0674e1381c0a6edc07.mockapi.io/pizzas/${id}`,
-				)
+				if (id) {
+					const data = await getPizzaById(id)
 
-				setPizza(data)
+					setPizza(data)
+				}
 			} catch (error) {
 				alert('Такой пиццы не существует!')
 				navigate('/')

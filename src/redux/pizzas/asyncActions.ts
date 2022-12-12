@@ -20,10 +20,22 @@ export const fetchPizzas = createAsyncThunk<
 		if (categoryId) filter += `&category=${categoryId}`
 		if (searchValue) filter += `&title=${searchValue}`
 
-		const { data } = await axios.get<PizzaItem[]>(
-			`https://62c6ff0674e1381c0a6edc07.mockapi.io/pizzas${filter}`,
-		)
-
-		return data
+		return getPizzasData(filter)
 	},
 )
+
+export const getPizzasData = async (value: string) => {
+	const { data } = await axios.get<PizzaItem[]>(
+		`https://62c6ff0674e1381c0a6edc07.mockapi.io/pizzas${value}`,
+	)
+
+	return data
+}
+
+export const getPizzaById = async (id: string) => {
+	const { data } = await axios.get<PizzaItem>(
+		`https://62c6ff0674e1381c0a6edc07.mockapi.io/pizzas/${id}`,
+	)
+
+	return data
+}
