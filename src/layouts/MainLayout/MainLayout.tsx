@@ -1,9 +1,11 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 
+// Files
 import styles from './MainLayout.module.scss'
 
-import Header from '../../components/Header/Header'
+// Components
+import { Header } from '../../components'
 
 const MainLayout: React.FC = () => {
 	return (

@@ -9,7 +9,7 @@ import { cartIcon } from '../../../assets/icons'
 import { useSelector } from 'react-redux'
 import { selectCart } from '../../../redux/cart/selectors'
 
-const CartButton: React.FC = () => {
+export const CartButton: React.FC = () => {
 	const { totalPrice, totalCount } = useSelector(selectCart)
 
 	return (
@@ -22,5 +22,3 @@ const CartButton: React.FC = () => {
 		</Link>
 	)
 }
-
-export default CartButton

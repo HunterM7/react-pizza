@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import styles from './Logo.module.scss'
 import { logo } from '../../../assets/icons'
 
-const Logo: React.FC = () => {
+export const Logo: React.FC = () => {
 	return (
 		<Link to={'/'} className={styles.logo}>
 			{logo}
@@ -16,5 +16,3 @@ const Logo: React.FC = () => {
 		</Link>
 	)
 }
-
-export default Logo

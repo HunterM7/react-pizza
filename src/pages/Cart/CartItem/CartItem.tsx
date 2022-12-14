@@ -13,7 +13,7 @@ import {
 import styles from './CartItem.module.scss'
 
 // Components
-import Button from '../../../components/Button/Button'
+import { Button } from '../../../components'
 
 const CartItem: React.FC<CartItemType> = ({
 	id,

@@ -1,7 +1,7 @@
 import React from 'react'
 import ContentLoader from 'react-content-loader'
 
-const PizzaCardSkeleton: React.FC = () => (
+export const PizzaCardSkeleton: React.FC = () => (
 	<ContentLoader
 		speed={2}
 		width={280}
@@ -45,5 +45,3 @@ const PizzaCardSkeleton: React.FC = () => (
 		/>
 	</ContentLoader>
 )
-
-export default PizzaCardSkeleton

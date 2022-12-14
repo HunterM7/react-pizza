@@ -5,15 +5,15 @@ import styles from './Search.module.scss'
 import { crossIcon, searchIcon } from '../../assets/icons'
 
 // Redux
-import { useDispatch } from 'react-redux'
+import { useAppDispatch } from '../../redux/store'
 import { setSearchValue } from '../../redux/filter/slice'
 
-const Search: React.FC = () => {
+export const Search: React.FC = () => {
 	const [localSearchValue, setLocalSearchValue] =
 		React.useState('')
 
 	// Redux
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 
 	const handleSearchValue = (value: string) =>
 		dispatch(setSearchValue(value))
@@ -69,5 +69,3 @@ const Search: React.FC = () => {
 		</div>
 	)
 }
-
-export default Search

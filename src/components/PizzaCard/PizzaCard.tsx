@@ -2,7 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 
 // Redux
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { CartItemType } from '../../redux/cart/types'
 import { addItem } from '../../redux/cart/slice'
 import { selectCartItemById } from '../../redux/cart/selectors'
@@ -11,7 +11,8 @@ import { selectCartItemById } from '../../redux/cart/selectors'
 import styles from './PizzaCard.module.scss'
 
 // Components
-import Button from '../Button/Button'
+import { Button } from '../../components'
+import { useAppDispatch } from '../../redux/store'
 
 type PizzaCardProps = {
 	id: string
@@ -22,7 +23,7 @@ type PizzaCardProps = {
 	sizes: number[]
 }
 
-const PizzaCard: React.FC<PizzaCardProps> = ({
+export const PizzaCard: React.FC<PizzaCardProps> = ({
 	id,
 	title,
 	price,
@@ -39,7 +40,7 @@ const PizzaCard: React.FC<PizzaCardProps> = ({
 
 	const addedCount = cartItem ? cartItem.count : 0
 
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 
 	const onClickAdd = () => {
 		const item: CartItemType = {
@@ -114,5 +115,3 @@ const PizzaCard: React.FC<PizzaCardProps> = ({
 		</div>
 	)
 }
-
-export default PizzaCard

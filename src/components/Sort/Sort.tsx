@@ -1,7 +1,7 @@
 import React from 'react'
 
 // Redux
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import {
 	SortName,
 	SortOrder,
@@ -14,6 +14,7 @@ import { selectSort } from '../../redux/filter/selectors'
 // Import files and styles
 import styles from './Sort.module.scss'
 import { triangleIcon } from '../../assets/icons'
+import { useAppDispatch } from '../../redux/store'
 
 export const sortList: SortType[] = [
 	{
@@ -48,7 +49,7 @@ export const sortList: SortType[] = [
 	},
 ]
 
-const Sort: React.FC = React.memo(() => {
+export const Sort: React.FC = React.memo(() => {
 	// Popup control
 	const [open, setOpen] = React.useState(false)
 	const sortRef = React.useRef<HTMLDivElement>(null)
@@ -78,7 +79,7 @@ const Sort: React.FC = React.memo(() => {
 	}, [])
 
 	// Redux
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 	const sort = useSelector(selectSort)
 
 	const chooseAndClose = (obj: SortType) => {
@@ -128,5 +129,3 @@ const Sort: React.FC = React.memo(() => {
 		</div>
 	)
 })
-
-export default Sort

@@ -9,11 +9,14 @@ import { selectCart } from '../../redux/cart/selectors'
 import styles from './Header.module.scss'
 
 // Components
-import Logo from './Logo/Logo'
-import Search from '../Search/Search'
-import CartButton from './CartButton/CartButton'
+import { Logo, Search, CartButton } from '../'
+import Login from '../../pages/Login/Login'
 
-const Header: React.FC = () => {
+export const Header: React.FC = () => {
+	// Login
+	const [loginPopup, setLoginPopup] =
+		React.useState<boolean>(false)
+
 	const location: string = useLocation().pathname
 
 	// Cart in LocalStorage
@@ -39,12 +42,19 @@ const Header: React.FC = () => {
 				{location !== '/cart' && (
 					<>
 						<Search />
+
 						<CartButton />
 					</>
 				)}
+				<button
+					className={styles.btn}
+					onClick={() => setLoginPopup(true)}
+				>
+					Войти
+				</button>
+
+				{loginPopup && <Login func={setLoginPopup} />}
 			</div>
 		</header>
 	)
 }
-
-export default Header

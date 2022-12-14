@@ -18,12 +18,15 @@ import { selectPizzas } from '../../redux/pizzas/selectors'
 import { selectFilter } from '../../redux/filter/selectors'
 
 // Components
-import Categories from '../../components/Categories/Categories'
-import Sort, { sortList } from '../../components/Sort/Sort'
-import PizzaCard from '../../components/PizzaCard/PizzaCard'
-import PizzaCardSkeleton from '../../components/PizzaCard/PizzaCardLoader'
-import Pagination from '../../components/Pagination/Pagination'
-import NotFound from '../NotFound/NotFound'
+import {
+	Sort,
+	Categories,
+	Pagination,
+	PizzaCard,
+	PizzaCardSkeleton,
+	sortList,
+} from '../../components'
+import { NotFound } from '../'
 
 // --- --- --- --- --- --- --- --- --- --- --- ---
 

@@ -15,8 +15,8 @@ const categoryItems: string[] = [
 	'Острые',
 ]
 
-const Categories: React.FC<CategoriesProps> = React.memo(
-	({ categoryId, onChangeCategory }) => {
+export const Categories: React.FC<CategoriesProps> =
+	React.memo(({ categoryId, onChangeCategory }) => {
 		const CategoriesList = categoryItems.map(
 			(item, index) => {
 				return (
@@ -39,7 +39,4 @@ const Categories: React.FC<CategoriesProps> = React.memo(
 				{CategoriesList}
 			</ul>
 		)
-	},
-)
-
-export default Categories
+	})

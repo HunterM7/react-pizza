@@ -12,7 +12,7 @@ type ButtonProps = {
 	isDisabled?: boolean
 }
 
-const Button: React.FC<ButtonProps> = ({
+export const Button: React.FC<ButtonProps> = ({
 	title,
 	icon,
 	count = 0,
@@ -46,5 +46,3 @@ const Button: React.FC<ButtonProps> = ({
 		</button>
 	)
 }
-
-export default Button
