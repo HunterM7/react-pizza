@@ -3,6 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { PizzaItem } from '../../redux/pizzas/types'
 import { getPizzaById } from '../../redux/pizzas/asyncActions'
 
+import { LoadingPage } from '../'
+
 const PizzaPage: React.FC = () => {
 	const { id } = useParams()
 	const [pizza, setPizza] = React.useState<PizzaItem>()
@@ -28,7 +30,7 @@ const PizzaPage: React.FC = () => {
 	}, [])
 
 	if (!pizza) {
-		return <h2>Загрузка...</h2>
+		return <LoadingPage />
 	}
 
 	return (

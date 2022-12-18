@@ -31,7 +31,7 @@ const cartSlice = createSlice({
 			state.totalCount = calcTotalCount(state.items)
 		},
 
-		removeItem(state, action: PayloadAction<string>) {
+		removeItem(state, action: PayloadAction<number>) {
 			state.items = state.items.filter(
 				(obj) => obj.id !== action.payload,
 			)
@@ -40,7 +40,7 @@ const cartSlice = createSlice({
 			state.totalCount = calcTotalCount(state.items)
 		},
 
-		plusItem(state, action: PayloadAction<string>) {
+		plusItem(state, action: PayloadAction<number>) {
 			const findItem = state.items.find(
 				(obj) => obj.id === action.payload,
 			)
@@ -53,7 +53,7 @@ const cartSlice = createSlice({
 			}
 		},
 
-		minusItem(state, action: PayloadAction<string>) {
+		minusItem(state, action: PayloadAction<number>) {
 			const findItem = state.items.find(
 				(obj) => obj.id === action.payload,
 			)

@@ -5,7 +5,7 @@ import { Route, Routes } from 'react-router-dom'
 import './scss/app.scss'
 
 // Components
-import { Home, NotFound } from './pages'
+import { Home, LoadingPage, NotFound } from './pages'
 
 import MainLayout from './layouts/MainLayout/MainLayout'
 
@@ -25,16 +25,28 @@ const PizzaPage = React.lazy(
 
 function App() {
 	return (
-		<React.Suspense fallback={<div>Пицца загружается</div>}>
-			<Routes>
-				<Route path='/' element={<MainLayout />}>
-					<Route path='' element={<Home />} />
-					<Route path='cart' element={<Cart />} />
-					<Route path='pizza-:id' element={<PizzaPage />} />
-					<Route path='*' element={<NotFound />} />
-				</Route>
-			</Routes>
-		</React.Suspense>
+		<Routes>
+			<Route path='/' element={<MainLayout />}>
+				<Route path='' element={<Home />} />
+				<Route
+					path='cart'
+					element={
+						<React.Suspense fallback={<LoadingPage />}>
+							<Cart />
+						</React.Suspense>
+					}
+				/>
+				<Route
+					path='pizza-:id'
+					element={
+						<React.Suspense fallback={<LoadingPage />}>
+							<PizzaPage />
+						</React.Suspense>
+					}
+				/>
+				<Route path='*' element={<NotFound />} />
+			</Route>
+		</Routes>
 	)
 }
 

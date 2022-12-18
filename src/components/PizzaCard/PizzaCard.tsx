@@ -15,7 +15,7 @@ import { Button } from '../../components'
 import { useAppDispatch } from '../../redux/store'
 
 type PizzaCardProps = {
-	id: string
+	id: number
 	title: string
 	price: number
 	imageUrl: string

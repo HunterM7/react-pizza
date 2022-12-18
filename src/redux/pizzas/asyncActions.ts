@@ -1,10 +1,21 @@
 import axios from 'axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-import { FetchPizzas, PizzaItem } from './types'
+import {
+	FetchPizzas,
+	PizzaItem,
+	SortOrder,
+	SortPropertyEnum,
+} from './types'
 
 // Firebase
-import { collection, getDocs } from 'firebase/firestore'
+import {
+	collection,
+	getDocs,
+	orderBy,
+	query,
+	where,
+} from 'firebase/firestore'
 import { database } from '../../firebase/firebaseConfig'
 
 // --- --- --- --- --- --- --- --- --- --- --- ---
@@ -20,45 +31,43 @@ export const fetchPizzas = createAsyncThunk<
 		categoryId,
 		searchValue,
 	}) => {
-		let filter = ''
-		filter += `?page=${currentPage}&limit=4`
-		filter += `&sortBy=${sortType.sortProperty}&order=${sortType.order}`
-		if (categoryId) filter += `&category=${categoryId}`
-		if (searchValue) filter += `&title=${searchValue}`
+		const collectionRef = query(
+			collection(database, 'pizzas'),
+			where('category', 'array-contains', categoryId),
+			orderBy(sortType.sortProperty, sortType.order),
+		)
 
-		return getPizzasData(filter)
+		let pizzas: PizzaItem[] = []
+
+		await getDocs(collectionRef)
+			.then((response) => {
+				pizzas = response.docs.map((item) => {
+					return {
+						...item.data(),
+						key: item.id,
+					}
+				}) as PizzaItem[]
+			})
+			.catch((error) =>
+				console.log(
+					`Error: Didn't get pizzas`,
+					error.message,
+				),
+			)
+
+		return pizzas
 	},
 )
 
 // MockAPI
-export const getPizzasData = async (value: string) => {
-	const { data } = await axios.get<PizzaItem[]>(
-		`https://62c6ff0674e1381c0a6edc07.mockapi.io/pizzas${value}`,
-	)
-
-	return data
-}
-
-// FIREBASE
 // export const getPizzasData = async (value: string) => {
-// 	const collectionRef = collection(database, 'pizzas')
+// 	const { data } = await axios.get<PizzaItem[]>(
+// 		`https://62c6ff0674e1381c0a6edc07.mockapi.io/pizzas${value}`,
+// 	)
 
-// 	let pizzas: PizzaItem[] = []
+// 	await getPizzasData2('')
 
-// 	await getDocs(collectionRef)
-// 		.then((response) => {
-// 			pizzas = response.docs.map((item) => {
-// 				return { ...item.data(), id: item.id } as PizzaItem
-// 			})
-// 		})
-// 		.catch((error) =>
-// 			console.log(
-// 				`Error: Didn't get pizzas`,
-// 				error.message,
-// 			),
-// 		)
-
-// 	return pizzas
+// 	return data
 // }
 
 export const getPizzaById = async (id: string) => {

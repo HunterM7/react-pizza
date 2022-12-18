@@ -27,6 +27,7 @@ import {
 	sortList,
 } from '../../components'
 import { NotFound } from '../'
+import { PizzaItem } from '../../redux/pizzas/types'
 
 // --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -39,7 +40,10 @@ const Home: React.FC = () => {
 		useSelector(selectPizzas)
 
 	const onChangeCategory = React.useCallback(
-		(id: number) => dispatch(setCategoryId(id)),
+		(id: number) => {
+			dispatch(setCategoryId(id))
+			dispatch(setCurrentPage(1))
+		},
 		[],
 	)
 
@@ -137,17 +141,22 @@ const Home: React.FC = () => {
 
 	const skeletons = [...new Array(4)].map((_, i) => {
 		return (
-			<li key={i} className={styles.pizzas__item}>
+			<li
+				key={`skeleton *${i}`}
+				className={styles.pizzas__item}
+			>
 				<PizzaCardSkeleton />
 			</li>
 		)
 	})
 
-	const pizzaList = pizzas.map((obj: any) => (
-		<li key={obj.id} className={styles.pizzas__item}>
-			<PizzaCard {...obj} />
-		</li>
-	))
+	const pizzaList = pizzas
+		.map((obj: PizzaItem) => (
+			<li key={obj.key} className={styles.pizzas__item}>
+				<PizzaCard {...obj} />
+			</li>
+		))
+		.slice(currentPage * 4 - 4, currentPage * 4)
 
 	return (
 		<div className={`container ${styles.container}`}>
@@ -173,6 +182,7 @@ const Home: React.FC = () => {
 				<Pagination
 					currentPage={currentPage}
 					setCurrentPage={onChangePage}
+					pageCount={Math.ceil(pizzas.length / 4)}
 				/>
 			</div>
 		</div>

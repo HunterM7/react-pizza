@@ -33,14 +33,15 @@ export type SortType = {
 }
 
 export type FetchPizzas = {
-	currentPage: number
-	sortType: SortType
 	categoryId: number
 	searchValue: string
+	currentPage: number
+	sortType: SortType
 }
 
 export type PizzaItem = {
-	id: string
+	id: number
+	key: string
 	title: string
 	price: number
 	imageUrl: string
