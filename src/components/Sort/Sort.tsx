@@ -1,131 +1,100 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 // Redux
-import { useSelector } from 'react-redux'
-import {
-	SortName,
-	SortOrder,
-	SortPropertyEnum,
-	SortType,
-} from '../../redux/pizzas/types'
-import { setSortType } from '../../redux/filter/slice'
-import { selectSort } from '../../redux/filter/selectors'
+import { useAppDispatch } from 'redux/store'
+import { SortType } from 'redux/pizzas/types'
+import { setSortType } from 'redux/filter/slice'
+import { selectSort } from 'redux/filter/selectors'
 
-// Import files and styles
+// Utils
+import { triangleIcon } from 'assets/icons'
+import { sortList } from 'utils/sortList'
+
+// Styles
 import styles from './Sort.module.scss'
-import { triangleIcon } from '../../assets/icons'
-import { useAppDispatch } from '../../redux/store'
 
-export const sortList: SortType[] = [
-	{
-		name: SortName.RATING_ASC,
-		sortProperty: SortPropertyEnum.RATING,
-		order: SortOrder.ASC,
-	},
-	{
-		name: SortName.RATING_DESC,
-		sortProperty: SortPropertyEnum.RATING,
-		order: SortOrder.DESC,
-	},
-	{
-		name: SortName.PRICE_ASC,
-		sortProperty: SortPropertyEnum.PRICE,
-		order: SortOrder.ASC,
-	},
-	{
-		name: SortName.PRICE_DESC,
-		sortProperty: SortPropertyEnum.PRICE,
-		order: SortOrder.DESC,
-	},
-	{
-		name: SortName.TITLE_ASC,
-		sortProperty: SortPropertyEnum.TITLE,
-		order: SortOrder.ASC,
-	},
-	{
-		name: SortName.TITLE_DESC,
-		sortProperty: SortPropertyEnum.TITLE,
-		order: SortOrder.DESC,
-	},
-]
+const Sort: React.FC = () => {
+  // Popup control
+  const [open, setOpen] = React.useState(false)
+  const sortRef = React.useRef<HTMLDivElement>(null)
 
-export const Sort: React.FC = React.memo(() => {
-	// Popup control
-	const [open, setOpen] = React.useState(false)
-	const sortRef = React.useRef<HTMLDivElement>(null)
+  // Функция позволяла не вызывать на каждый клик setOpen(false), но сломалась. Попробовать починить
+  // const handleClick = (e: MouseEvent) => {
+  //   const _e = e as MouseEvent & {
+  //     path: Node[]
+  //   }
 
-	React.useEffect(() => {
-		const handleClick = (e: MouseEvent) => {
-			const _e = e as MouseEvent & {
-				path: Node[]
-			}
+  //   if (sortRef.current && _e.path?.includes(sortRef.current)) {
+  //     setOpen(false)
+  //   }
+  // }
 
-			if (
-				sortRef.current &&
-				!_e.path.includes(sortRef.current)
-			) {
-				setOpen(false)
-			}
-		}
+  // Handling popup
+  const handleClose = () => {
+    setOpen(false)
+  }
 
-		document.body.addEventListener('click', handleClick)
+  const handleOpen = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+    e.stopPropagation()
+    setOpen(!open)
+  }
 
-		return () => {
-			document.body.removeEventListener(
-				'click',
-				handleClick,
-			)
-		}
-	}, [])
+  React.useEffect(() => {
+    document.body.addEventListener('click', handleClose)
 
-	// Redux
-	const dispatch = useAppDispatch()
-	const sort = useSelector(selectSort)
+    return () => {
+      document.body.removeEventListener('click', handleClose)
+    }
+  }, [])
 
-	const chooseAndClose = (obj: SortType) => {
-		dispatch(setSortType(obj))
-		setOpen(false)
-	}
-	// --- --- --- --- --- --- --- ---
+  // Redux
+  const dispatch = useAppDispatch()
+  const sort = useSelector(selectSort)
 
-	return (
-		<div ref={sortRef} className={styles.sort}>
-			<div
-				className={`
+  const chooseAndClose = (obj: SortType) => {
+    dispatch(setSortType(obj))
+    setOpen(false)
+  }
+  // --- --- --- --- --- --- --- ---
+
+  return (
+    <div ref={sortRef} className={styles.sort}>
+      <div
+        className={`
 						${styles.sort__icon}
 						${open ? styles.active : ''}
 					`}
-			>
-				{triangleIcon}
-			</div>
+      >
+        {triangleIcon}
+      </div>
 
-			<b className={styles.sort__title}>Сортировка по:</b>
+      <b className={styles.sort__title}>Сортировка по:</b>
 
-			<span
-				className={styles.sort__name}
-				onClick={() => setOpen(!open)}
-			>
-				{sort.name}
-			</span>
+      <span className={styles.sort__name} onClick={handleOpen}>
+        {sort.name}
+      </span>
 
-			{open && (
-				<ul className={styles.popup}>
-					{sortList.map((obj, i) => {
-						return (
-							<li
-								key={i}
-								className={`
+      {open && (
+        <ul className={styles.popup}>
+          {sortList.map((obj, i) => {
+            return (
+              <li
+                key={i}
+                className={`
 									${styles.popup__item}
 									${sort.name === obj.name ? styles.active : ''}
 								`}
-								onClick={() => chooseAndClose(obj)}
-							>
-								{obj.name}
-							</li>
-						)
-					})}
-				</ul>
-			)}
-		</div>
-	)
-})
+                onClick={() => chooseAndClose(obj)}
+              >
+                {obj.name}
+              </li>
+            )
+          })}
+        </ul>
+      )}
+    </div>
+  )
+}
+
+export default Sort

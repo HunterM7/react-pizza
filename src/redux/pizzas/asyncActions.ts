@@ -4,8 +4,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import {
 	FetchPizzas,
 	PizzaItem,
-	SortOrder,
-	SortPropertyEnum,
 } from './types'
 
 // Firebase
@@ -26,10 +24,8 @@ export const fetchPizzas = createAsyncThunk<
 >(
 	'pizzas/fetchPizzas',
 	async ({
-		currentPage,
 		sortType,
 		categoryId,
-		searchValue,
 	}) => {
 		const collectionRef = query(
 			collection(database, 'pizzas'),
