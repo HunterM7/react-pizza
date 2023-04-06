@@ -1,0 +1,43 @@
+//? === Pizza Selector ===
+
+@import 'scss/vars';
+
+.selector {
+	padding: 6px;
+	margin-bottom: 20px;
+
+	border-radius: 10px;
+	background-color: $light2;
+
+	&__block {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+
+		&:not(:last-of-type) {
+			margin-bottom: 6px;
+		}
+	}
+
+	&__item {
+		font-size: 14px;
+		font-weight: 600;
+		color: $dark;
+
+		flex: 1;
+
+		padding: 8px;
+
+		cursor: pointer;
+
+		@include noselect();
+
+		&.active {
+			border-radius: 5px;
+			background-color: $white;
+			box-shadow: $shadow-secondary;
+
+			cursor: default;
+		}
+	}
+}

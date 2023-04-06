@@ -13,7 +13,9 @@ export const generateRecaptcha = () => {
 		'recaptcha-container',
 		{
 			size: 'invisible',
-			callback: (response: any) => {
+			callback: (
+				// response
+				) => {
 				// reCAPTCHA solved, allow signInWithPhoneNumber.
 			},
 		},
