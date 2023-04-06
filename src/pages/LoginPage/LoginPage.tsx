@@ -1,8 +1,9 @@
+/* eslint-disable*/
 import React from 'react'
 
 // Firebase
-
 import { signInWithPhoneNumber } from 'firebase/auth'
+
 import { auth } from '../../firebase/firebaseConfig'
 import { generateRecaptcha } from '../../firebase/LoginWithPhoneFuncs'
 
@@ -74,10 +75,10 @@ const Login: React.FC<LoginType> = ({ func }) => {
     let captcha = window.recaptchaVerifier
 
     signInWithPhoneNumber(auth, phone, captcha)
-      .then((confirmationResult) => {
+      .then(confirmationResult => {
         window.confirmationResult = confirmationResult
       })
-      .catch((error) => {
+      .catch(error => {
         console.log('error sms', error)
       })
   }
@@ -114,7 +115,7 @@ const Login: React.FC<LoginType> = ({ func }) => {
         <input
           type="tel"
           value={phone}
-          onChange={(e) => handlePhoneInput(e.target.value)}
+          onChange={e => handlePhoneInput(e.target.value)}
         />
         <button
           className="singinBtn"
@@ -128,7 +129,7 @@ const Login: React.FC<LoginType> = ({ func }) => {
           <input
             type="number"
             value={SMS}
-            onChange={(e) => verifySMS(e.target.value)}
+            onChange={e => verifySMS(e.target.value)}
           />
         )}
 

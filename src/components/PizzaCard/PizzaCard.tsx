@@ -13,6 +13,7 @@ import { useAppDispatch } from '../../redux/store'
 
 // Styles
 import styles from './PizzaCard.module.scss'
+import PizzaSelector from '../PizzaSelector/PizzaSelector'
 
 type PizzaCardProps = {
   id: number
@@ -64,40 +65,14 @@ const PizzaCard: React.FC<PizzaCardProps> = ({
         <h4 className={styles.title}>{title}</h4>
       </NavLink>
 
-      <div className={styles.selector}>
-        <ul className={styles.selector__block}>
-          {types.map((typeId, index) => {
-            return (
-              <li
-                key={typeId}
-                className={`
-									${styles.selector__item}
-									${activeType === index ? styles.active : ''}
-								`}
-                onClick={() => setActiveType(index)}
-              >
-                {typeNames[typeId]}
-              </li>
-            )
-          })}
-        </ul>
-        <ul className={styles.selector__block}>
-          {sizes.map((size, index) => {
-            return (
-              <li
-                key={size}
-                className={`
-									${styles.selector__item}
-									${activeSize === index ? styles.active : ''}
-								`}
-                onClick={() => setActiveSize(index)}
-              >
-                {size} см.
-              </li>
-            )
-          })}
-        </ul>
-      </div>
+      <PizzaSelector
+        activeSize={activeSize}
+        activeType={activeType}
+        setActiveSize={setActiveSize}
+        setActiveType={setActiveType}
+        sizes={sizes}
+        types={types}
+      />
 
       <div className={styles.bottom}>
         <p className={styles.price}>от {price} ₽</p>

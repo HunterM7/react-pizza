@@ -9,3 +9,6 @@ export { default as PizzaCard } from './PizzaCard/PizzaCard'
 export { default as PizzaCardSkeleton } from './PizzaCard/PizzaCardSkeleton'
 export { default as Search } from './Search/Search'
 export { default as Sort } from './Sort/Sort'
+export { default as Router } from './Router/Router'
+
+export { default as PizzaSelector } from './PizzaSelector/PizzaSelector'
