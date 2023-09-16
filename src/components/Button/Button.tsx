@@ -1,48 +1,49 @@
-import React from 'react'
+import React, { MouseEventHandler } from 'react'
+import cn from 'classnames'
 
-import styles from './Button.module.scss'
+// Assets
 import { minusIcon, plusIcon } from '../../assets/icons'
 
-type ButtonProps = {
-	title?: string
-	icon: string
-	count?: number
-	func: () => void
-	round?: boolean
-	isDisabled?: boolean
+// Styles
+import styles from './Button.module.scss'
+
+export interface IButtonProps {
+  title?: string
+  icon: 'plus' | 'minus' | 'remove'
+  count?: number
+  onClick: MouseEventHandler<HTMLButtonElement>
+  round?: boolean
+  disabled?: boolean
 }
 
-export const Button: React.FC<ButtonProps> = ({
-	title,
-	icon,
-	count = 0,
-	func,
-	round = false,
-	isDisabled = false,
+export const Button: React.FC<IButtonProps> = ({
+  title,
+  icon,
+  count = 0,
+  onClick,
+  round = false,
+  disabled = false,
 }) => {
-	return (
-		<button
-			className={`
-			${styles.wrapper}
-			${round ? styles['wrapper--round'] : ''}
-			${icon === 'remove' ? styles['wrapper--remove'] : ''}
-		`}
-			onClick={func}
-			disabled={isDisabled}
-		>
-			{icon && (
-				<div className={styles.icon}>
-					{(icon === 'plus' || icon === 'remove') &&
-						plusIcon}
-					{icon === 'minus' && minusIcon}
-				</div>
-			)}
-			{title && (
-				<span className={styles.title}>{title}</span>
-			)}
-			{count > 0 && (
-				<span className={styles.count}>{count}</span>
-			)}
-		</button>
-	)
+  return (
+    <button
+      className={cn(
+        styles.wrapper,
+        round && styles['wrapper--round'],
+        icon === 'remove' && styles['wrapper--remove'],
+      )}
+      onClick={onClick}
+      disabled={disabled}
+    >
+      {icon && (
+        <div className={styles.icon}>
+          {(icon === 'plus' || icon === 'remove') && plusIcon}
+          {icon === 'minus' && minusIcon}
+        </div>
+      )}
+
+      {title && <span className={styles.title}>{title}</span>}
+
+      {count > 0 && <span className={styles.count}>{count}</span>}
+    </button>
+  )
 }
