@@ -22,5 +22,5 @@
     // "noUnusedParameters": true,
     // "incremental": true
   },
-  "include": ["src", "src/@types/"]
+  "include": ["src", "src/declarations"]
 }
