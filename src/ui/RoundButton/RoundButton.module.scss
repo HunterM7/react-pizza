@@ -1,0 +1,112 @@
+//? == Card Button ==
+
+@import '../../scss/vars';
+
+.wrapper {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	flex-shrink: 0;
+
+	width: 32px;
+	aspect-ratio: 1/1;
+
+	border-radius: 50%;
+	border: 2px solid $orange;
+	// background-color: $white;
+
+	@include noselect;
+
+	transition:
+		border-color $trans-fast,
+		background-color $trans-fast;
+
+	&:hover {
+		background-color: $orange;
+
+		.icon {
+			svg {
+				path {
+					fill: $white;
+				}
+			}
+		}
+	}
+
+	&:active {
+		border-color: darken($orange, 8%);
+		background-color: darken($orange, 8%);
+
+		transform: translateY(1px);
+	}
+
+	&--remove {
+		border-color: $light-gray2;
+
+		.icon {
+			svg {
+				transform: rotate(45deg);
+
+				transition: transform $trans-medium;
+				path {
+					fill: $light-gray2;
+				}
+			}
+		}
+
+		&:hover {
+			border-color: $red;
+			background: transparent;
+
+			.icon {
+				svg {
+					transform: rotate(225deg);
+					path {
+						fill: $red;
+					}
+				}
+			}
+		}
+	}
+
+	&:disabled {
+		border-color: $light-gray2;
+		background-color: transparent;
+
+		cursor: default;
+
+		.icon {
+			svg {
+				path {
+					fill: $light-gray2;
+				}
+			}
+		}
+
+		&:active {
+			transform: none;
+		}
+	}
+}
+
+.icon {
+	width: 12px;
+	height: 12px;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+
+	svg {
+		width: 100%;
+		height: 100%;
+
+		path {
+			fill: $orange;
+
+			transition: fill $trans-fast;
+		}
+	}
+}
