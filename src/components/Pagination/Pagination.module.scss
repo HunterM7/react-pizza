@@ -1,6 +1,6 @@
 //? == Pagination ==
 
-@import '../../scss/vars';
+@import 'scss/vars';
 
 .wrapper {
 	display: flex;
@@ -27,7 +27,9 @@
 			border-radius: 50%;
 			border: 1px solid $orange;
 
-			transition: color $trans-fast, background-color $trans-fast;
+			transition:
+				color $trans-fast,
+				background-color $trans-fast;
 
 			cursor: pointer;
 

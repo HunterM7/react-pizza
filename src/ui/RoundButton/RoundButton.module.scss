@@ -8,15 +8,13 @@
 	justify-content: center;
 	align-items: center;
 	flex-shrink: 0;
-	column-gap: 8px;
 
-	padding: 8px 10px;
+	width: 32px;
+	aspect-ratio: 1/1;
 
-	border-radius: 30px;
-	border: 1px solid $orange;
-	background-color: $white;
-
-	cursor: pointer;
+	border-radius: 50%;
+	border: 2px solid $orange;
+	// background-color: $white;
 
 	@include noselect;
 
@@ -34,16 +32,6 @@
 				}
 			}
 		}
-
-		.title {
-			color: $white;
-		}
-
-		.count {
-			color: $orange;
-
-			background-color: $white;
-		}
 	}
 
 	&:active {
@@ -51,27 +39,6 @@
 		background-color: darken($orange, 8%);
 
 		transform: translateY(1px);
-	}
-
-	&--round {
-		width: 32px;
-		aspect-ratio: 1/1;
-
-		border-radius: 50%;
-		border: 2px solid $orange;
-
-		padding: 0;
-
-		.icon {
-		}
-
-		.title {
-			display: none;
-		}
-
-		.count {
-			display: none;
-		}
 	}
 
 	&--remove {
@@ -140,60 +107,6 @@
 			fill: $orange;
 
 			transition: fill $trans-fast;
-		}
-	}
-}
-
-.title {
-	font-size: 16px;
-	font-weight: 700;
-	color: $orange;
-
-	transition: color $trans-fast;
-}
-
-.count {
-	font-size: 13px;
-	font-weight: 700;
-	color: $white;
-
-	width: 22px;
-	height: 22px;
-
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-	flex-shrink: 0;
-
-	border-radius: 50%;
-	background-color: $orange;
-
-	transition:
-		color $trans-fast,
-		background-color $trans-fast;
-}
-
-// ---------------------------
-
-.button {
-	&--circle {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 32px;
-		height: 32px;
-		min-width: 32px;
-		padding: 0;
-		border-width: 2px;
-	}
-
-	&--black {
-		background-color: $black;
-
-		&:hover,
-		&:active {
-			background-color: lighten($color: $black, $amount: 10);
 		}
 	}
 }

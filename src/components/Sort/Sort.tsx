@@ -1,131 +1,124 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 // Redux
-import { useSelector } from 'react-redux'
+import { useAppDispatch } from 'redux/store'
 import {
-	SortName,
-	SortOrder,
-	SortPropertyEnum,
-	SortType,
-} from '../../redux/pizzas/types'
-import { setSortType } from '../../redux/filter/slice'
-import { selectSort } from '../../redux/filter/selectors'
+  SortName,
+  SortOrder,
+  SortPropertyEnum,
+  SortType,
+} from 'redux/pizzas/types'
+import { setSortType } from 'redux/filter/slice'
+import { selectSort } from 'redux/filter/selectors'
 
-// Import files and styles
+// Assets
+import { triangleIcon } from 'assets'
+
+// Styles
 import styles from './Sort.module.scss'
-import { triangleIcon } from '../../assets/icons'
-import { useAppDispatch } from '../../redux/store'
 
 export const sortList: SortType[] = [
-	{
-		name: SortName.RATING_ASC,
-		sortProperty: SortPropertyEnum.RATING,
-		order: SortOrder.ASC,
-	},
-	{
-		name: SortName.RATING_DESC,
-		sortProperty: SortPropertyEnum.RATING,
-		order: SortOrder.DESC,
-	},
-	{
-		name: SortName.PRICE_ASC,
-		sortProperty: SortPropertyEnum.PRICE,
-		order: SortOrder.ASC,
-	},
-	{
-		name: SortName.PRICE_DESC,
-		sortProperty: SortPropertyEnum.PRICE,
-		order: SortOrder.DESC,
-	},
-	{
-		name: SortName.TITLE_ASC,
-		sortProperty: SortPropertyEnum.TITLE,
-		order: SortOrder.ASC,
-	},
-	{
-		name: SortName.TITLE_DESC,
-		sortProperty: SortPropertyEnum.TITLE,
-		order: SortOrder.DESC,
-	},
+  {
+    name: SortName.RATING_ASC,
+    sortProperty: SortPropertyEnum.RATING,
+    order: SortOrder.ASC,
+  },
+  {
+    name: SortName.RATING_DESC,
+    sortProperty: SortPropertyEnum.RATING,
+    order: SortOrder.DESC,
+  },
+  {
+    name: SortName.PRICE_ASC,
+    sortProperty: SortPropertyEnum.PRICE,
+    order: SortOrder.ASC,
+  },
+  {
+    name: SortName.PRICE_DESC,
+    sortProperty: SortPropertyEnum.PRICE,
+    order: SortOrder.DESC,
+  },
+  {
+    name: SortName.TITLE_ASC,
+    sortProperty: SortPropertyEnum.TITLE,
+    order: SortOrder.ASC,
+  },
+  {
+    name: SortName.TITLE_DESC,
+    sortProperty: SortPropertyEnum.TITLE,
+    order: SortOrder.DESC,
+  },
 ]
 
 export const Sort: React.FC = React.memo(() => {
-	// Popup control
-	const [open, setOpen] = React.useState(false)
-	const sortRef = React.useRef<HTMLDivElement>(null)
+  // Popup control
+  const [open, setOpen] = React.useState(false)
+  const sortRef = React.useRef<HTMLDivElement>(null)
 
-	React.useEffect(() => {
-		const handleClick = (e: MouseEvent) => {
-			const _e = e as MouseEvent & {
-				path: Node[]
-			}
+  React.useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      const _e = e as MouseEvent & {
+        path: Node[]
+      }
 
-			if (
-				sortRef.current &&
-				!_e.path.includes(sortRef.current)
-			) {
-				setOpen(false)
-			}
-		}
+      if (sortRef.current && !_e.path?.includes(sortRef.current)) {
+        setOpen(false)
+      }
+    }
 
-		document.body.addEventListener('click', handleClick)
+    document.body.addEventListener('click', handleClick)
 
-		return () => {
-			document.body.removeEventListener(
-				'click',
-				handleClick,
-			)
-		}
-	}, [])
+    return () => {
+      document.body.removeEventListener('click', handleClick)
+    }
+  }, [])
 
-	// Redux
-	const dispatch = useAppDispatch()
-	const sort = useSelector(selectSort)
+  // Redux
+  const dispatch = useAppDispatch()
+  const sort = useSelector(selectSort)
 
-	const chooseAndClose = (obj: SortType) => {
-		dispatch(setSortType(obj))
-		setOpen(false)
-	}
-	// --- --- --- --- --- --- --- ---
+  const chooseAndClose = (obj: SortType) => {
+    dispatch(setSortType(obj))
+    setOpen(false)
+  }
+  // --- --- --- --- --- --- --- ---
 
-	return (
-		<div ref={sortRef} className={styles.sort}>
-			<div
-				className={`
+  return (
+    <div ref={sortRef} className={styles.sort}>
+      <div
+        className={`
 						${styles.sort__icon}
 						${open ? styles.active : ''}
 					`}
-			>
-				{triangleIcon}
-			</div>
+      >
+        {triangleIcon}
+      </div>
 
-			<b className={styles.sort__title}>Сортировка по:</b>
+      <b className={styles.sort__title}>Сортировка по:</b>
 
-			<span
-				className={styles.sort__name}
-				onClick={() => setOpen(!open)}
-			>
-				{sort.name}
-			</span>
+      <span className={styles.sort__name} onClick={() => setOpen(!open)}>
+        {sort.name}
+      </span>
 
-			{open && (
-				<ul className={styles.popup}>
-					{sortList.map((obj, i) => {
-						return (
-							<li
-								key={i}
-								className={`
+      {open && (
+        <ul className={styles.popup}>
+          {sortList.map((obj, i) => {
+            return (
+              <li
+                key={i}
+                className={`
 									${styles.popup__item}
 									${sort.name === obj.name ? styles.active : ''}
 								`}
-								onClick={() => chooseAndClose(obj)}
-							>
-								{obj.name}
-							</li>
-						)
-					})}
-				</ul>
-			)}
-		</div>
-	)
+                onClick={() => chooseAndClose(obj)}
+              >
+                {obj.name}
+              </li>
+            )
+          })}
+        </ul>
+      )}
+    </div>
+  )
 })
