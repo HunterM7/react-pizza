@@ -1,6 +1,6 @@
 //? == Card Button ==
 
-@import '../../scss/vars';
+@import 'scss/vars';
 
 .wrapper {
 	display: flex;
@@ -20,7 +20,9 @@
 
 	@include noselect;
 
-	transition: border-color $trans-fast, background-color $trans-fast;
+	transition:
+		border-color $trans-fast,
+		background-color $trans-fast;
 
 	&:hover {
 		background-color: $orange;
@@ -167,7 +169,9 @@
 	border-radius: 50%;
 	background-color: $orange;
 
-	transition: color $trans-fast, background-color $trans-fast;
+	transition:
+		color $trans-fast,
+		background-color $trans-fast;
 }
 
 // ---------------------------

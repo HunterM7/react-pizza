@@ -1,18 +1,18 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 // Redux
-import { useSelector } from 'react-redux'
-import { CartItemType } from '../../redux/cart/types'
-import { addItem } from '../../redux/cart/slice'
-import { selectCartItemById } from '../../redux/cart/selectors'
-
-// Files
-import styles from './PizzaCard.module.scss'
+import { useAppDispatch } from 'redux/store'
+import { CartItemType } from 'redux/cart/types'
+import { addItem } from 'redux/cart/slice'
+import { selectCartItemById } from 'redux/cart/selectors'
 
 // Components
-import { Button } from '../../components'
-import { useAppDispatch } from '../../redux/store'
+import { Button } from 'components'
+
+// Styles
+import styles from './PizzaCard.module.scss'
 
 type PizzaCardProps = {
   id: number

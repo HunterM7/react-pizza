@@ -1,6 +1,6 @@
 //? == Cart ==
 
-@import '../../scss/vars';
+@import 'scss/vars';
 
 .cart {
 	&--empty {
@@ -187,7 +187,9 @@
 		border-color: $light-gray2;
 		background-color: $white;
 
-		transition: color $trans-fast, border-color $trans-fast;
+		transition:
+			color $trans-fast,
+			border-color $trans-fast;
 
 		svg {
 			path {
@@ -217,7 +219,8 @@
 		border-color: $orange;
 		background-color: $orange;
 
-		transition: border-color $trans-fast,
+		transition:
+			border-color $trans-fast,
 			background-color $trans-fast;
 
 		&:hover {

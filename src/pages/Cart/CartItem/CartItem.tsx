@@ -1,16 +1,16 @@
 import React from 'react'
 
 // Redux
-import { useAppDispatch } from '../../../redux/store'
-import { CartItemType } from '../../../redux/cart/types'
-import { minusItem, plusItem, removeItem } from '../../../redux/cart/slice'
-
-// Files
-import styles from './CartItem.module.scss'
+import { useAppDispatch } from 'redux/store'
+import { CartItemType } from 'redux/cart/types'
+import { minusItem, plusItem, removeItem } from 'redux/cart/slice'
 
 // Components 'n UI
 import { RoundButton } from 'ui'
-import { Button } from '../../../components'
+import { Button } from 'components'
+
+// Styles
+import styles from './CartItem.module.scss'
 
 const CartItem: React.FC<CartItemType> = ({
   id,

@@ -1,20 +1,22 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 // Redux
-import { useSelector } from 'react-redux'
+import { useAppDispatch } from 'redux/store'
 import {
   SortName,
   SortOrder,
   SortPropertyEnum,
   SortType,
-} from '../../redux/pizzas/types'
-import { setSortType } from '../../redux/filter/slice'
-import { selectSort } from '../../redux/filter/selectors'
+} from 'redux/pizzas/types'
+import { setSortType } from 'redux/filter/slice'
+import { selectSort } from 'redux/filter/selectors'
 
-// Import files and styles
+// Assets
+import { triangleIcon } from 'assets'
+
+// Styles
 import styles from './Sort.module.scss'
-import { triangleIcon } from '../../assets/icons'
-import { useAppDispatch } from '../../redux/store'
 
 export const sortList: SortType[] = [
   {

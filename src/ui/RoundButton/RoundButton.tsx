@@ -2,7 +2,7 @@ import React, { MouseEventHandler } from 'react'
 import cn from 'classnames'
 
 // Assets
-import { minusIcon, plusIcon } from '../../assets/icons'
+import { minusIcon, plusIcon } from 'assets'
 
 // Styles
 import styles from './RoundButton.module.scss'
